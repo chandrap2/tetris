@@ -1,4 +1,6 @@
 import pygame as pyg
+import util
+
 pyg.init()
 
 """ general game constants """
@@ -15,8 +17,8 @@ screen_dim = screen.get_rect()
 
 face_surface = pyg.image.load("face.png").convert()
 
-dt_world_update = 500 # in ms
-dt_strafe_update = 250 # in ms
+dt_world_update = 1000 # in ms
+dt_manip_update = 250 # in ms
 
 # pong_noise = pyg.mixer.Sound("4388__noisecollector__pongblipe5.wav")
 
@@ -29,3 +31,8 @@ dt_strafe_update = 250 # in ms
 
 WORLD_UPDATE_ID = pyg.USEREVENT
 WORLD_UPDATE_EV = pyg.event.Event(WORLD_UPDATE_ID)
+
+PIECE_MANIP_LEFT_ID = pyg.USEREVENT + 1
+PIECE_MANIP_RIGHT_ID = pyg.USEREVENT + 2
+PIECE_MANIP_CLOCK_ID = pyg.USEREVENT + 3
+PIECE_MANIP_COUNTERCLOCK_ID = pyg.USEREVENT + 4
