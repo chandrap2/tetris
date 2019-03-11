@@ -19,18 +19,24 @@ class Square():
 
 	def player_event_listener(self, events):
 		for event in events:
-			if event.type == g_const.WORLD_UPDATE_ID or event.type == g_const.PIECE_MANIP_LEFT_ID or event.type == g_const.PIECE_MANIP_RIGHT_ID:
-				print(event)
-
-			if event.type == g_const.WORLD_UPDATE_ID:
-				self.move_down_one_block()
+			if event.type == g_const.WORLD_UPDATE_ID or event.type == g_const.PIECE_MANIP_DOWN_ID:
+				if self.y_block != g_const.screen_h_blocks - 1:
+					self.move_down_one_block()
+				else:
+					self.move_to_block(self.x_block, 0)
 			elif event.type == g_const.PIECE_MANIP_LEFT_ID:
-				self.move_blocks(-1, 0)
+				self.move_left_one_block()
 			elif event.type == g_const.PIECE_MANIP_RIGHT_ID:
-				self.move_blocks(1, 0)
+				self.move_right_one_block()
 
 	def move_down_one_block(self):
 		self.move_blocks(0, 1)
+
+	def move_left_one_block(self):
+		self.move_blocks(-1, 0)
+
+	def move_right_one_block(self):
+		self.move_blocks(1, 0)
 
 	def move_blocks(self, dx, dy):
 		self.x_block = util.clamp(0, g_const.screen_w_blocks - 1, self.x_block + dx)

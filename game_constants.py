@@ -7,9 +7,9 @@ pyg.init()
 fps = 120 # desired framerate
 frame_length = 1.0 / fps # in seconds
 
-square_size = 50
+square_size = 20
 
-screen_w_blocks, screen_h_blocks = 5, 10
+screen_w_blocks, screen_h_blocks = 10, 20
 screen_size = (screen_w_blocks * square_size, screen_h_blocks * square_size)
 
 screen = pyg.display.set_mode(screen_size)
@@ -17,7 +17,7 @@ screen_dim = screen.get_rect()
 
 face_surface = pyg.image.load("face.png").convert()
 
-dt_world_update = 1000 # in ms
+dt_world_update = 500 # in ms
 dt_manip_update = 250 # in ms
 
 # pong_noise = pyg.mixer.Sound("4388__noisecollector__pongblipe5.wav")
@@ -34,5 +34,10 @@ WORLD_UPDATE_EV = pyg.event.Event(WORLD_UPDATE_ID)
 
 PIECE_MANIP_LEFT_ID = pyg.USEREVENT + 1
 PIECE_MANIP_RIGHT_ID = pyg.USEREVENT + 2
+continue_strafe_while_key_held = False
+
 PIECE_MANIP_CLOCK_ID = pyg.USEREVENT + 3
-PIECE_MANIP_COUNTERCLOCK_ID = pyg.USEREVENT + 4
+continue_rot_while_key_held = False
+
+PIECE_MANIP_DOWN_ID = pyg.USEREVENT + 4
+continue_down_while_key_held = True
