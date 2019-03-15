@@ -3,6 +3,7 @@ import game_constants as g_const
 
 from random import randint
 from Square import Square
+from Shape import Shape
 import EventManager as evtMan
 
 pyg.init() # initialize modules
@@ -15,7 +16,8 @@ frame_length = g_const.frame_length # in seconds
 screen = g_const.screen
 screen_dim = g_const.screen_dim
 
-obj = Square()
+# squares = [Square()]
+shapes = [Shape()]
 
 def main():
 	start = time.time()
@@ -30,20 +32,20 @@ def main():
 			start = time.time() # reset start tick
 
 			# handle events
-			evtMan.process(pyg.event.get())
+			evtMan.processEvents()
 			events = pyg.event.get()
 
-			obj.update(events)
+			for event in events:
+				# if event.type == g_const.PIECE_HIT_BOTTOM: squares.append(Square())
+				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape())
 
 			# draw background and objects
 			screen.fill((0, 0, 0))
-			screen.blit(obj.s_surface, obj.get_pixel_pos())
+			for shape in shapes:
+				if not shape.has_hit_bottom: shape.update(events)
+				shape.draw()
 
 			# update display
 			pyg.display.update()
-
-def is_button_pressed(int_id): # return whether specified key was pressed at that moment
-	pressed = pyg.key.get_pressed()[int_id]
-	return pressed
 
 main()
