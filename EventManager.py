@@ -42,7 +42,13 @@ def stop_manip_update():
 def processEvents():
 	events = pyg.event.get()
 
+	if len(events) > 0:
+		print()
+	
 	for event in events:
+		if len(events) > 0:
+			print(event)
+
 		if event.type == pyg.QUIT:
 			sys.exit()
 

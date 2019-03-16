@@ -21,10 +21,16 @@ class Shape():
 					for square in self.squares:
 						if square.has_hit_bottom:
 							self.has_hit_bottom = True
-							pyg.event.post(pyg.event.Event(g_const.PIECE_HIT_BOTTOM_ID))
-					if not self.has_hit_bottom: self.move_down_one_block()
+							break
+
+					if self.has_hit_bottom:
+						pyg.event.post(pyg.event.Event(g_const.PIECE_HIT_BOTTOM_ID))
+					else:
+						self.move_down_one_block()
+
 				elif event.type == g_const.PIECE_MANIP_LEFT_ID:
 					self.move_left_one_block()
+
 				elif event.type == g_const.PIECE_MANIP_RIGHT_ID:
 					self.move_right_one_block()
 

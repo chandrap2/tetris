@@ -7,8 +7,9 @@ from Shape import Shape
 import EventManager as evtMan
 
 pyg.init() # initialize modules
-# pyg.event.set_blocked([pyg.MOUSEMOTION, pyg.MOUSEBUTTONUP, pyg.MOUSEBUTTONDOWN, pyg.KEYUP, pyg.KEYDOWN]) # blocking unwanted events
-# pyg.event.set_allowed([pyg.KEYUP, pyg.KEYDOWN, .GAMEREADY_ID]) # blocking unwanted events
+# pyg.event.set_blocked([pyg.MOUSEMOTION, pyg.MOUSEBUTTONUP, pyg.MOUSEBUTTONDOWN]) # blocking unwanted events
+pyg.event.set_allowed(None) # blocking unwanted events
+pyg.event.set_allowed([pyg.KEYUP, pyg.KEYDOWN, pyg.USEREVENT, pyg.USEREVENT + 1, pyg.USEREVENT + 2, pyg.USEREVENT + 3, pyg.USEREVENT + 4, pyg.USEREVENT + 5]) # blocking unwanted events
 
 fps = g_const.fps # desired framerate
 frame_length = g_const.frame_length # in seconds
@@ -34,9 +35,8 @@ def main():
 			# handle events
 			evtMan.processEvents()
 			events = pyg.event.get()
-
+			
 			for event in events:
-				# if event.type == g_const.PIECE_HIT_BOTTOM: squares.append(Square())
 				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape())
 
 			# draw background and objects
