@@ -34,6 +34,24 @@ class Shape():
 				elif event.type == g_const.PIECE_MANIP_RIGHT_ID:
 					self.move_right_one_block()
 
+				elif event.type == g_const.PIECE_MANIP_CLOCK_ID:
+					# print(event)
+					self.rotate_clock()
+
+	def rotate_clock(self):
+		self.orient_state = (self.orient_state + 1 if self.orient_state != g_const.SHAPE_ORIENT_4 else g_const.SHAPE_ORIENT_1)
+
+		origin_x, origin_y = self.squares[1].get_block_pos()
+
+		if self.orient_state == g_const.SHAPE_ORIENT_1 or self.orient_state == g_const.SHAPE_ORIENT_3:
+			self.squares[0].move_to_block(origin_x - 1, origin_y)
+			self.squares[2].move_to_block(origin_x, origin_y + 1)
+			self.squares[3].move_to_block(origin_x + 1, origin_y + 1)
+		else:
+			self.squares[0].move_to_block(origin_x, origin_y - 1)
+			self.squares[2].move_to_block(origin_x - 1, origin_y)
+			self.squares[3].move_to_block(origin_x - 1, origin_y + 1)
+
 	def move_down_one_block(self):
 		self.move_blocks(0, 1)
 
@@ -47,11 +65,11 @@ class Shape():
 		for square in self.squares:
 			square.move_blocks(dx, dy)
 
-	def move_to_block(self, x, y):
-		self.squares[0].move_to_block(x, y)
-		self.squares[1].move_to_block(x + 1, y)
-		self.squares[2].move_to_block(x + 1, y + 1)
-		self.squares[3].move_to_block(x + 1, y + 2)
+	# def move_to_block(self, x, y):
+	# 	self.squares[0].move_to_block(x, y)
+	# 	self.squares[1].move_to_block(x + 1, y)
+	# 	self.squares[2].move_to_block(x + 1, y + 1)
+	# 	self.squares[3].move_to_block(x + 1, y + 2)
 
 	def draw(self):
 		for square in self.squares:

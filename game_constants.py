@@ -8,9 +8,9 @@ square_size = 30
 
 """ shape constants """
 SHAPE_ORIENT_1 = 0
-SHAPE_ORIENT_2 = 0
-SHAPE_ORIENT_3 = 0
-SHAPE_ORIENT_4 = 0
+SHAPE_ORIENT_2 = 1
+SHAPE_ORIENT_3 = 2
+SHAPE_ORIENT_4 = 3
 
 """ general game constants """
 fps = 120 # desired framerate
