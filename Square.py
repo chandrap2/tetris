@@ -16,18 +16,22 @@ class Square():
 		self.has_hit_bottom = False
 		self.update_pixel_pos()
 
-	def move_blocks(self, dx, dy):
+	def move_blocks(self, dx, dy, terrain):
 		self.x_block = self.x_block + dx
 		self.y_block = self.y_block + dy
 
-		self.has_hit_bottom = self.y_block == g_const.screen_h_blocks - 1
+		bottom = terrain.get_bottom_below_y(self.x_block, self.y_block)
+
+		self.has_hit_bottom = self.y_block == bottom - 1
 		self.update_pixel_pos()
 
-	def move_to_block(self, x, y):
+	def move_to_block(self, x, y, terrain):
 		self.x_block = x
 		self.y_block = y
 
-		self.has_hit_bottom = self.y_block == g_const.screen_h_blocks - 1
+		bottom = terrain.get_bottom_below_y(self.x_block, self.y_block)
+
+		self.has_hit_bottom = self.y_block == bottom - 1
 		self.update_pixel_pos()
 
 	def update_pixel_pos(self):

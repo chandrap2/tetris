@@ -17,11 +17,12 @@ frame_length = g_const.frame_length # in seconds
 screen = g_const.screen
 screen_dim = g_const.screen_dim
 
-# squares = [Square()]
-shapes = [Shape()]
-t = Terrain()
 
 def main():
+	# squares = [Square()]
+	shapes = [Shape()]
+	t = Terrain()
+
 	start = time.time()
 	evtMan.start_world_update()
 
@@ -43,7 +44,7 @@ def main():
 			# draw background and objects
 			screen.fill((0, 0, 0))
 			for shape in shapes:
-				shape.update(events)
+				shape.update(events, t)
 				shape.draw()
 
 			t.update(events)

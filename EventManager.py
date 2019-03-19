@@ -49,7 +49,7 @@ def processEvents():
 			sys.exit()
 
 		if event.type >= pyg.USEREVENT:
-			print(event)
+			# print(event)
 			
 			pyg.event.post(event)
 			continue

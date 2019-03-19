@@ -2,18 +2,19 @@ import time, pygame as pyg
 import game_constants as g_const, util
 
 from Square import Square
+from Terrain import Terrain
 
 class Shape():
 
 	def __init__(self):
 		self.screen = g_const.screen
 
-		self.squares = [Square(), Square(1, 0), Square(1, 1), Square(2, 1)]
+		self.squares = [Square(), Square(1, 0), Square(1, 1), Square(2, 1)] # second element is square of reference
 
 		self.orient_state = g_const.SHAPE_ORIENT_1
 		self.has_hit_bottom = False
 
-	def update(self, events):
+	def update(self, events, terrain):
 		if not self.has_hit_bottom:
 
 			for event in events:
@@ -27,53 +28,47 @@ class Shape():
 						pyg.event.post(pyg.event.Event(g_const.PIECE_HIT_BOTTOM_ID))
 
 						for square in self.squares:
-							print(g_const.SQUARE_COOR_ID)
 							pyg.event.post(pyg.event.Event(g_const.SQUARE_COOR_ID, x = square.x_block, y = square.y_block))
+
 					else:
-						self.move_down_one_block()
+						self.move_down_one_block(terrain)
 
 				elif event.type == g_const.PIECE_MANIP_LEFT_ID:
-					self.move_left_one_block()
+					self.move_left_one_block(terrain)
 
 				elif event.type == g_const.PIECE_MANIP_RIGHT_ID:
-					self.move_right_one_block()
+					self.move_right_one_block(terrain)
 
 				elif event.type == g_const.PIECE_MANIP_CLOCK_ID:
 					# print(event)
-					self.rotate_clock()
+					self.rotate_clock(terrain)
 
-	def rotate_clock(self):
+	def rotate_clock(self, terrain):
 		self.orient_state = (g_const.SHAPE_ORIENT_2 if self.orient_state == g_const.SHAPE_ORIENT_1 else g_const.SHAPE_ORIENT_1)
 
 		origin_x, origin_y = self.squares[1].get_block_pos()
 
 		if self.orient_state == g_const.SHAPE_ORIENT_1:
-			self.squares[0].move_to_block(origin_x - 1, origin_y)
-			self.squares[2].move_to_block(origin_x, origin_y + 1)
-			self.squares[3].move_to_block(origin_x + 1, origin_y + 1)
+			self.squares[0].move_to_block(origin_x - 1, origin_y, terrain)
+			self.squares[2].move_to_block(origin_x, origin_y + 1, terrain)
+			self.squares[3].move_to_block(origin_x + 1, origin_y + 1, terrain)
 		else:
-			self.squares[0].move_to_block(origin_x, origin_y - 1)
-			self.squares[2].move_to_block(origin_x - 1, origin_y)
-			self.squares[3].move_to_block(origin_x - 1, origin_y + 1)
+			self.squares[0].move_to_block(origin_x, origin_y - 1, terrain)
+			self.squares[2].move_to_block(origin_x - 1, origin_y, terrain)
+			self.squares[3].move_to_block(origin_x - 1, origin_y + 1, terrain)
 
-	def move_down_one_block(self):
-		self.move_blocks(0, 1)
+	def move_down_one_block(self, terrain):
+		self.move_blocks(0, 1, terrain)
 
-	def move_left_one_block(self):
-		self.move_blocks(-1, 0)
+	def move_left_one_block(self, terrain):
+		self.move_blocks(-1, 0, terrain)
 
-	def move_right_one_block(self):
-		self.move_blocks(1, 0)
+	def move_right_one_block(self, terrain):
+		self.move_blocks(1, 0, terrain)
 
-	def move_blocks(self, dx, dy):
+	def move_blocks(self, dx, dy, terrain):
 		for square in self.squares:
-			square.move_blocks(dx, dy)
-
-	# def move_to_block(self, x, y):
-	# 	self.squares[0].move_to_block(x, y)
-	# 	self.squares[1].move_to_block(x + 1, y)
-	# 	self.squares[2].move_to_block(x + 1, y + 1)
-	# 	self.squares[3].move_to_block(x + 1, y + 2)
+			square.move_blocks(dx, dy, terrain)
 
 	def draw(self):
 		for square in self.squares:
