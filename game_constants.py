@@ -42,3 +42,5 @@ PIECE_MANIP_DOWN_ID = pyg.USEREVENT + 4
 continue_down_while_key_held = True
 
 PIECE_HIT_BOTTOM_ID = pyg.USEREVENT + 5
+
+SQUARE_COOR_ID = pyg.USEREVENT + 6

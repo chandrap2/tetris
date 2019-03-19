@@ -41,7 +41,7 @@ def stop_manip_update():
 	ev_con_one.current_manip = None
 
 def processEvents():
-	events = pyg.event.get()
+	events = pyg.event.get() # store, then clear event queue
 
 	for event in events:
 
@@ -49,6 +49,8 @@ def processEvents():
 			sys.exit()
 
 		if event.type >= pyg.USEREVENT:
+			print(event)
+			
 			pyg.event.post(event)
 			continue
 

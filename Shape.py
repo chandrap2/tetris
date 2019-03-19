@@ -25,6 +25,10 @@ class Shape():
 
 					if self.has_hit_bottom:
 						pyg.event.post(pyg.event.Event(g_const.PIECE_HIT_BOTTOM_ID))
+
+						for square in self.squares:
+							print(g_const.SQUARE_COOR_ID)
+							pyg.event.post(pyg.event.Event(g_const.SQUARE_COOR_ID, x = square.x_block, y = square.y_block))
 					else:
 						self.move_down_one_block()
 
@@ -39,11 +43,11 @@ class Shape():
 					self.rotate_clock()
 
 	def rotate_clock(self):
-		self.orient_state = (self.orient_state + 1 if self.orient_state != g_const.SHAPE_ORIENT_4 else g_const.SHAPE_ORIENT_1)
+		self.orient_state = (g_const.SHAPE_ORIENT_2 if self.orient_state == g_const.SHAPE_ORIENT_1 else g_const.SHAPE_ORIENT_1)
 
 		origin_x, origin_y = self.squares[1].get_block_pos()
 
-		if self.orient_state == g_const.SHAPE_ORIENT_1 or self.orient_state == g_const.SHAPE_ORIENT_3:
+		if self.orient_state == g_const.SHAPE_ORIENT_1:
 			self.squares[0].move_to_block(origin_x - 1, origin_y)
 			self.squares[2].move_to_block(origin_x, origin_y + 1)
 			self.squares[3].move_to_block(origin_x + 1, origin_y + 1)

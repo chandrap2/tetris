@@ -15,15 +15,6 @@ class Square():
 		self.x_block, self.y_block = init_x_block, init_y_block
 		self.has_hit_bottom = False
 		self.update_pixel_pos()
-	
-	def move_down_one_block(self):
-		self.move_blocks(0, 1)
-
-	def move_left_one_block(self):
-		self.move_blocks(-1, 0)
-
-	def move_right_one_block(self):
-		self.move_blocks(1, 0)
 
 	def move_blocks(self, dx, dy):
 		self.x_block = self.x_block + dx
