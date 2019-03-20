@@ -16,6 +16,32 @@ class Square():
 		self.has_hit_bottom = False
 		self.update_pixel_pos()
 
+	def move_to_left(self, dx, terrain):
+		if not terrain.check_for_collision_to_left(self):
+			self.x_block -= abs(dx)
+			self.update_pixel_pos()
+
+			return True
+		return False
+
+	def move_down(self, dy, terrain):
+		if not terrain.check_for_collision_below(self):
+			self.y_block += abs(dy)
+			self.update_pixel_pos()
+
+			return True
+
+		self.has_hit_bottom = True
+		return False
+
+	def move_to_right(self, dx, terrain):
+		if not terrain.check_for_collision_to_right(self):
+			self.x_block += abs(dx)
+			self.update_pixel_pos()
+
+			return True
+		return False
+
 	def move_blocks(self, dx, dy, terrain):
 		self.x_block = self.x_block + dx
 		self.y_block = self.y_block + dy

@@ -24,7 +24,7 @@ screen_dim = screen.get_rect()
 
 face_surface = pyg.image.load("face.png").convert()
 
-dt_world_update = 375 # in ms
+dt_world_update = 1000 # in ms
 dt_manip_update = 62 # in ms
 
 """ events """

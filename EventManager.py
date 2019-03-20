@@ -50,7 +50,7 @@ def processEvents():
 
 		if event.type >= pyg.USEREVENT:
 			# print(event)
-			
+
 			pyg.event.post(event)
 			continue
 
@@ -75,3 +75,5 @@ def processEvents():
 			elif event.key == pyg.K_DOWN and ev_con_one.current_manip == g_const.PIECE_MANIP_DOWN_ID:
 				start_world_update()
 				stop_manip_update()
+
+	return pyg.event.get()
