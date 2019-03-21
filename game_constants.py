@@ -4,7 +4,7 @@ import util
 pyg.init()
 
 """ square constants """
-square_size = 30
+square_size = 40
 
 """ shape constants """
 SHAPE_ORIENT_1 = 0

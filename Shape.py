@@ -16,7 +16,6 @@ class Shape():
 		self.has_hit_bottom = False
 
 	def update(self, events):
-
 		if not self.has_hit_bottom:
 
 			for event in events:
@@ -38,21 +37,27 @@ class Shape():
 
 				elif event.type == g_const.PIECE_MANIP_CLOCK_ID:
 					# print(event)
-					self.rotate_clock(terrain)
+					self.rotate_clock()
 
-	def rotate_clock(self, terrain):
+	def rotate_clock(self):
 		self.orient_state = (g_const.SHAPE_ORIENT_2 if self.orient_state == g_const.SHAPE_ORIENT_1 else g_const.SHAPE_ORIENT_1)
 
 		origin_x, origin_y = self.squares[1].get_block_pos()
 
 		if self.orient_state == g_const.SHAPE_ORIENT_1:
-			self.squares[0].move_to_block(origin_x - 1, origin_y, terrain)
-			self.squares[2].move_to_block(origin_x, origin_y + 1, terrain)
-			self.squares[3].move_to_block(origin_x + 1, origin_y + 1, terrain)
+			if not self.squares[0].check_for_collision_coordinate(origin_x - 1, origin_y) and \
+			not self.squares[2].check_for_collision_coordinate(origin_x, origin_y + 1) and \
+			not self.squares[3].check_for_collision_coordinate(origin_x + 1, origin_y + 1):
+				self.squares[0].move_to_block(origin_x - 1, origin_y)
+				self.squares[2].move_to_block(origin_x, origin_y + 1)
+				self.squares[3].move_to_block(origin_x + 1, origin_y + 1)
 		else:
-			self.squares[0].move_to_block(origin_x, origin_y - 1, terrain)
-			self.squares[2].move_to_block(origin_x - 1, origin_y, terrain)
-			self.squares[3].move_to_block(origin_x - 1, origin_y + 1, terrain)
+			if not self.squares[0].check_for_collision_coordinate(origin_x, origin_y - 1) and \
+			not self.squares[2].check_for_collision_coordinate(origin_x - 1, origin_y) and \
+			not self.squares[3].check_for_collision_coordinate(origin_x - 1, origin_y + 1):
+				self.squares[0].move_to_block(origin_x, origin_y - 1)
+				self.squares[2].move_to_block(origin_x - 1, origin_y)
+				self.squares[3].move_to_block(origin_x - 1, origin_y + 1)
 
 	def move_left_one_block(self):
 		# self.move_blocks(-1, 0, terrain)
@@ -84,10 +89,6 @@ class Shape():
 
 		for square in self.squares:
 			square.move_to_right(1)
-
-	def move_blocks(self, dx, dy, terrain):
-		for square in self.squares:
-			square.move_blocks(dx, dy, terrain)
 
 	def draw(self):
 		for square in self.squares:
