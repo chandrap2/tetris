@@ -15,17 +15,14 @@ class Shape():
 		self.orient_state = g_const.SHAPE_ORIENT_1
 		self.has_hit_bottom = False
 
-	def update(self, events, terrain):
+	def update(self, events):
 
 		if not self.has_hit_bottom:
 
 			for event in events:
 				# print()
 				if event.type == g_const.WORLD_UPDATE_ID or event.type == g_const.PIECE_MANIP_DOWN_ID:
-					for square in self.squares:
-						if square.has_hit_bottom:
-							self.has_hit_bottom = True
-							break
+					self.move_down_one_block()
 
 					if self.has_hit_bottom:
 						pyg.event.post(pyg.event.Event(g_const.PIECE_HIT_BOTTOM_ID))
@@ -33,14 +30,11 @@ class Shape():
 						for square in self.squares:
 							pyg.event.post(pyg.event.Event(g_const.SQUARE_COOR_ID, x = square.x_block, y = square.y_block))
 
-					else:
-						self.move_down_one_block(terrain)
-
 				if event.type == g_const.PIECE_MANIP_LEFT_ID:
-					self.move_left_one_block(terrain)
+					self.move_left_one_block()
 
 				elif event.type == g_const.PIECE_MANIP_RIGHT_ID:
-					self.move_right_one_block(terrain)
+					self.move_right_one_block()
 
 				elif event.type == g_const.PIECE_MANIP_CLOCK_ID:
 					# print(event)
@@ -60,7 +54,7 @@ class Shape():
 			self.squares[2].move_to_block(origin_x - 1, origin_y, terrain)
 			self.squares[3].move_to_block(origin_x - 1, origin_y + 1, terrain)
 
-	def move_left_one_block(self, terrain):
+	def move_left_one_block(self):
 		# self.move_blocks(-1, 0, terrain)
 
 		for square in self.squares:
@@ -70,17 +64,18 @@ class Shape():
 		for square in self.squares:
 			square.move_to_left(1)
 
-	def move_down_one_block(self, terrain):
+	def move_down_one_block(self):
 		# self.move_blocks(0, 1, terrain)
 
 		for square in self.squares:
 			if square.check_for_collision_below():
+				self.has_hit_bottom = True
 				return
 
 		for square in self.squares:
 			square.move_down(1)
 
-	def move_right_one_block(self, terrain):
+	def move_right_one_block(self):
 		# self.move_blocks(1, 0, terrain)
 
 		for square in self.squares:

@@ -39,7 +39,7 @@ def main():
 			# draw background and objects
 			screen.fill((0, 0, 0))
 			for shape in shapes:
-				shape.update(events, terrain)
+				shape.update(events)
 				shape.draw()
 
 			# update display

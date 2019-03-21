@@ -16,7 +16,6 @@ class Square():
 		self.s_rect = self.s_surface.get_rect() # pos is (0, 0)
 
 		self.x_block, self.y_block = init_x_block, init_y_block
-		self.has_hit_bottom = False
 		self.update_pixel_pos()
 
 	def move_to_left(self, dx):
@@ -29,10 +28,9 @@ class Square():
 
 	def move_down(self, dy):
 		# if not terrain.check_for_collision_below(self):
+
 		self.y_block += abs(dy)
 		self.update_pixel_pos()
-
-		self.has_hit_bottom = self.check_for_collision_below()
 
 		# 	return True
 		#
