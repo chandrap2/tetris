@@ -16,8 +16,8 @@ screen = g_const.screen
 screen_dim = g_const.screen_dim
 
 def main():
-	shapes = [Shape()]
 	terrain = Terrain()
+	shapes = [Shape(terrain)]
 
 	start = time.time()
 	evtMan.start_world_update()
@@ -32,7 +32,7 @@ def main():
 			events = evtMan.processEvents()
 
 			for event in events:
-				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape())
+				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape(terrain))
 
 			terrain.update(events)
 

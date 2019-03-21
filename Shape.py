@@ -6,10 +6,11 @@ from Terrain import Terrain
 
 class Shape():
 
-	def __init__(self):
+	def __init__(self, terrain):
 		self.screen = g_const.screen
+		self.terrain = terrain
 
-		self.squares = [Square(), Square(1, 0), Square(1, 1), Square(2, 1)] # second element is square of reference
+		self.squares = [Square(terrain), Square(terrain, 1, 0), Square(terrain, 1, 1), Square(terrain, 2, 1)] # second element is square of reference
 
 		self.orient_state = g_const.SHAPE_ORIENT_1
 		self.has_hit_bottom = False
@@ -35,15 +36,15 @@ class Shape():
 					else:
 						self.move_down_one_block(terrain)
 
-					if event.type == g_const.PIECE_MANIP_LEFT_ID:
-						self.move_left_one_block(terrain)
+				if event.type == g_const.PIECE_MANIP_LEFT_ID:
+					self.move_left_one_block(terrain)
 
-					elif event.type == g_const.PIECE_MANIP_RIGHT_ID:
-						self.move_right_one_block(terrain)
+				elif event.type == g_const.PIECE_MANIP_RIGHT_ID:
+					self.move_right_one_block(terrain)
 
-					elif event.type == g_const.PIECE_MANIP_CLOCK_ID:
-						# print(event)
-						self.rotate_clock(terrain)
+				elif event.type == g_const.PIECE_MANIP_CLOCK_ID:
+					# print(event)
+					self.rotate_clock(terrain)
 
 	def rotate_clock(self, terrain):
 		self.orient_state = (g_const.SHAPE_ORIENT_2 if self.orient_state == g_const.SHAPE_ORIENT_1 else g_const.SHAPE_ORIENT_1)
@@ -63,32 +64,31 @@ class Shape():
 		# self.move_blocks(-1, 0, terrain)
 
 		for square in self.squares:
-			if not Square(square.x_block, square.y_block).move_to_left(1, terrain):
+			if square.check_for_collision_to_left():
 				return
 
 		for square in self.squares:
-			square.move_to_left(1, terrain)
+			square.move_to_left(1)
 
 	def move_down_one_block(self, terrain):
 		# self.move_blocks(0, 1, terrain)
 
 		for square in self.squares:
-			if not Square(square.x_block, square.y_block).move_down(1, terrain):
-				square.move_down(1, terrain)
+			if square.check_for_collision_below():
 				return
 
 		for square in self.squares:
-			square.move_down(1, terrain)
+			square.move_down(1)
 
 	def move_right_one_block(self, terrain):
 		# self.move_blocks(1, 0, terrain)
 
 		for square in self.squares:
-			if not Square(square.x_block, square.y_block).move_to_right(1, terrain):
+			if square.check_for_collision_to_right():
 				return
 
 		for square in self.squares:
-			square.move_to_right(1, terrain)
+			square.move_to_right(1)
 
 	def move_blocks(self, dx, dy, terrain):
 		for square in self.squares:
