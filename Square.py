@@ -60,10 +60,6 @@ class Square():
 	def get_pixel_pos(self):
 		return (self.s_rect.x, self.s_rect.y)
 
-	# def check_collision_neighbors(self):
-	# 	coll_map = (self.check_for_collision_to_left(square), self.check_for_collision_below(square), self.check_for_collision_to_right(square))
-	# 	return coll_map
-
 	def check_for_collision_to_left(self):
 		return (self.x_block == 0 or self.terrain.game_map[self.x_block - 1][self.y_block] == True)
 
@@ -72,20 +68,3 @@ class Square():
 
 	def check_for_collision_to_right(self):
 		return (self.x_block == g_const.screen_w_blocks - 1 or self.terrain.game_map[self.x_block + 1][self.y_block] == True)
-
-	def check_for_collision_coordinate(self, x, y):
-		if (x < 0 or x >= g_const.screen_w_blocks) or \
-		(y < 0 or y >= g_const.screen_h_blocks):
-			return True
-
-		dx = x - self.x_block
-		dy = y - self.y_block
-
-		dx_sign = int(dx / abs(dx)) if dx != 0 else 1 # increment value can't be 0 in range() function, so arbitrarily setting d_sign variables if d's are 0
-		dy_sign = int(dy / abs(dy)) if dy != 0 else 1
-
-		for col in range(self.x_block, x + dx_sign, dx_sign): # adding dx_sign and dy_sign to also check location to move to
-			for row in range(self.y_block, y + dy_sign, dy_sign):
-				if col == self.x_block and row == self.y_block: continue
-				if self.terrain.game_map[col][row]: return True
-		return False
