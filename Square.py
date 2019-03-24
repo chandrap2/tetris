@@ -1,4 +1,4 @@
-import time, pygame as pyg
+import pygame as pyg
 import game_constants as g_const, util
 
 from Terrain import Terrain

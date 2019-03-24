@@ -4,7 +4,7 @@ from random import randint
 import game_constants as g_const
 import EventManager as evtMan
 
-from Shape import Shape
+from Shape4 import Shape4
 from Terrain import Terrain
 
 pyg.init() # initialize modules
@@ -16,7 +16,7 @@ screen_dim = g_const.screen_dim
 
 def main():
 	terrain = Terrain()
-	shapes = [Shape(terrain)]
+	shapes = [Shape4(terrain)]
 
 	start = time.time()
 	evtMan.start_world_update()
@@ -31,7 +31,7 @@ def main():
 			events = evtMan.processEvents()
 
 			for event in events:
-				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape(terrain))
+				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape4(terrain))
 
 			terrain.update(events)
 

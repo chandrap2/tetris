@@ -1,17 +1,22 @@
-import time, pygame as pyg
+import pygame as pyg
 import game_constants as g_const, util
 
 from Square import Square
 from Terrain import Terrain
 
-class Shape():
+class Shape1():
+
+	"""
+	##
+	 ##
+	"""
 
 	def __init__(self, terrain):
 		self.screen = g_const.screen
 		self.terrain = terrain
 
-		self.squares = [Square(terrain), Square(terrain, 1, 0), Square(terrain, 1, 1), Square(terrain, 2, 1)] # second element is square of reference
-		self.origin_block = self.squares[1]
+		self.squares = [Square(terrain), Square(terrain, 1, 0), Square(terrain, 1, 1), Square(terrain, 2, 1)]
+		self.origin_block = self.squares[1] # second element is square of reference
 
 		self.orient_state = g_const.SHAPE_ORIENT_1
 		self.has_hit_bottom = False
@@ -36,6 +41,7 @@ class Shape():
 					self.move_right_one_block()
 
 				elif event.type == g_const.PIECE_MANIP_CLOCK_ID:
+					# print("rotate")
 					self.rotate_clock()
 
 	def rotate_clock(self):
