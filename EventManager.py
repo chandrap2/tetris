@@ -28,8 +28,8 @@ def start_manip_update(manipulation):
 	else: # down
 		if g_const.continue_down_while_key_held: pyg.time.set_timer(manipulation, g_const.dt_manip_update)
 
+	ev_con_one.manipulating_piece = True # whether a piece is being manipulated
 	ev_con_one.current_manip = manipulation
-	ev_con_one.manipulating_piece = True
 
 def stop_manip_update():
 	pyg.time.set_timer(g_const.PIECE_MANIP_LEFT_ID, 0)

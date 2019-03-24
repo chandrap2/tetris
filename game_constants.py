@@ -33,13 +33,13 @@ WORLD_UPDATE_EV = pyg.event.Event(WORLD_UPDATE_ID)
 
 PIECE_MANIP_LEFT_ID = pyg.USEREVENT + 1
 PIECE_MANIP_RIGHT_ID = pyg.USEREVENT + 2
-continue_strafe_while_key_held = False
+continue_strafe_while_key_held = False # whether shape can be strafed continuously as long as keys are help down
 
 PIECE_MANIP_CLOCK_ID = pyg.USEREVENT + 3
-continue_rot_while_key_held = False
+continue_rot_while_key_held = False # whether shape can be rotated continuously as long as keys are help down
 
 PIECE_MANIP_DOWN_ID = pyg.USEREVENT + 4
-continue_down_while_key_held = True
+continue_down_while_key_held = True  # whether shape can be strafed continuously as long as keys are help down
 
 PIECE_HIT_BOTTOM_ID = pyg.USEREVENT + 5
 

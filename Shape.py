@@ -20,7 +20,6 @@ class Shape():
 		if not self.has_hit_bottom:
 
 			for event in events:
-				# print()
 				if event.type == g_const.WORLD_UPDATE_ID or event.type == g_const.PIECE_MANIP_DOWN_ID:
 					self.move_down_one_block()
 
@@ -28,7 +27,7 @@ class Shape():
 						pyg.event.post(pyg.event.Event(g_const.PIECE_HIT_BOTTOM_ID))
 
 						for square in self.squares:
-							pyg.event.post(pyg.event.Event(g_const.SQUARE_COOR_ID, x = square.x_block, y = square.y_block))
+							pyg.event.post(pyg.event.Event(g_const.SQUARE_COOR_ID, x = square.x_block, y = square.y_block)) # events holding coords of each square
 
 				if event.type == g_const.PIECE_MANIP_LEFT_ID:
 					self.move_left_one_block()
@@ -37,7 +36,6 @@ class Shape():
 					self.move_right_one_block()
 
 				elif event.type == g_const.PIECE_MANIP_CLOCK_ID:
-					# print(event)
 					self.rotate_clock()
 
 	def rotate_clock(self):
@@ -65,7 +63,7 @@ class Shape():
 	def move_down_one_block(self):
 		for square in self.squares:
 			if square.check_for_collision_below():
-				self.has_hit_bottom = True
+				self.has_hit_bottom = True # updates shape state if any square is touching something below it
 				return
 
 		for square in self.squares:
@@ -79,6 +77,7 @@ class Shape():
 		for square in self.squares:
 			square.move_to_right(1)
 
+	# used when trying to rotate
 	def check_for_collision_around_origin(self):
 		for col in range(self.origin_block.x_block - 1, self.origin_block.x_block + 2):
 			for row in range(self.origin_block.y_block - 1, self.origin_block.y_block + 2):

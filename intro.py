@@ -1,4 +1,4 @@
-import pygame as pyg, time, sys
+import pygame as pyg, time
 from random import randint
 
 import game_constants as g_const
@@ -11,7 +11,6 @@ pyg.init() # initialize modules
 pyg.event.set_blocked([pyg.MOUSEMOTION, pyg.MOUSEBUTTONUP, pyg.MOUSEBUTTONDOWN]) # blocking unwanted events
 
 frame_length = g_const.frame_length # in seconds
-
 screen = g_const.screen
 screen_dim = g_const.screen_dim
 

@@ -6,7 +6,6 @@ from Terrain import Terrain
 class Square():
 
 	def __init__(self, terrain, init_x_block = 0, init_y_block = 0):
-		# uses screen dimensions for player placement
 		self.screen_dim = g_const.screen_dim
 		self.terrain = terrain
 
@@ -19,37 +18,23 @@ class Square():
 		self.update_pixel_pos()
 
 	def move_to_left(self, dx):
-		# if not terrain.check_for_collision_to_left(self):
 		self.x_block -= abs(dx)
 		self.update_pixel_pos()
 
-			# return True
-		# return False
-
 	def move_down(self, dy):
-		# if not terrain.check_for_collision_below(self):
-
 		self.y_block += abs(dy)
 		self.update_pixel_pos()
 
-		# 	return True
-		#
-		# self.has_hit_bottom = True
-		# return False
-
 	def move_to_right(self, dx):
-		# if not terrain.check_for_collision_to_right(self):
 		self.x_block += abs(dx)
 		self.update_pixel_pos()
-		#
-		# 	return True
-		# return False
 
 	def move_to_block(self, x, y):
 		self.x_block = x
 		self.y_block = y
 		self.update_pixel_pos()
 
+	# update pixel position of Rect instance
 	def update_pixel_pos(self):
 		self.s_rect.x = self.x_block * g_const.square_size
 		self.s_rect.y = self.y_block * g_const.square_size
