@@ -4,18 +4,16 @@ import game_constants as g_const, util
 from Shape1 import Shape1
 from Terrain import Terrain
 
-class Shape3(Shape1):
+class Shape5(Shape1):
 	"""
-	0..
-	123
+	.1.
+	023
 	...
 	"""
 	def __init__(self, terrain):
 		Shape1.__init__(self, terrain)
 
-		self.squares[1].move_to_block(0, 1)
-		self.squares[2].move_to_block(1, 1)
-		self.squares[3].move_to_block(2, 1)
+		self.squares[0].move_to_block(0, 1)
 
 		self.origin_block = self.squares[2]
 
@@ -25,18 +23,18 @@ class Shape3(Shape1):
 			origin_x, origin_y = self.origin_block.get_block_pos()
 
 			if self.orient_state == g_const.SHAPE_ORIENT_1:
-				self.squares[0].move_to_block(origin_x - 1, origin_y - 1)
-				self.squares[1].move_to_block(origin_x - 1, origin_y)
+				self.squares[0].move_to_block(origin_x - 1, origin_y)
+				self.squares[1].move_to_block(origin_x, origin_y - 1)
 				self.squares[3].move_to_block(origin_x + 1, origin_y)
 			elif self.orient_state == g_const.SHAPE_ORIENT_2:
-				self.squares[0].move_to_block(origin_x + 1, origin_y - 1)
-				self.squares[1].move_to_block(origin_x, origin_y - 1)
+				self.squares[0].move_to_block(origin_x, origin_y - 1)
+				self.squares[1].move_to_block(origin_x + 1, origin_y)
 				self.squares[3].move_to_block(origin_x, origin_y + 1)
 			elif self.orient_state == g_const.SHAPE_ORIENT_3:
-				self.squares[0].move_to_block(origin_x + 1, origin_y + 1)
-				self.squares[1].move_to_block(origin_x + 1, origin_y)
+				self.squares[0].move_to_block(origin_x + 1, origin_y)
+				self.squares[1].move_to_block(origin_x, origin_y + 1)
 				self.squares[3].move_to_block(origin_x - 1, origin_y)
 			else:
-				self.squares[0].move_to_block(origin_x - 1, origin_y + 1)
-				self.squares[1].move_to_block(origin_x, origin_y + 1)
+				self.squares[0].move_to_block(origin_x, origin_y + 1)
+				self.squares[1].move_to_block(origin_x - 1, origin_y)
 				self.squares[3].move_to_block(origin_x, origin_y - 1)

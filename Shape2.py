@@ -6,8 +6,8 @@ from Terrain import Terrain
 
 class Shape2(Shape1):
 	"""
-	 ##
-	##
+	 23
+	01
 	"""
 	def __init__(self, terrain):
 		Shape1.__init__(self, terrain)

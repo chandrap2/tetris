@@ -6,8 +6,9 @@ from Terrain import Terrain
 
 class Shape4(Shape1):
 	"""
-	  #
-	###
+	..3
+	012
+	...
 	"""
 	def __init__(self, terrain):
 		Shape1.__init__(self, terrain)

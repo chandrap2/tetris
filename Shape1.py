@@ -7,8 +7,9 @@ from Terrain import Terrain
 class Shape1():
 
 	"""
-	##
-	 ##
+	01.
+	.23
+	...
 	"""
 
 	def __init__(self, terrain):
@@ -34,7 +35,9 @@ class Shape1():
 						for square in self.squares:
 							pyg.event.post(pyg.event.Event(g_const.SQUARE_COOR_ID, x = square.x_block, y = square.y_block)) # events holding coords of each square
 
-				if event.type == g_const.PIECE_MANIP_LEFT_ID:
+					break
+
+				elif event.type == g_const.PIECE_MANIP_LEFT_ID:
 					self.move_left_one_block()
 
 				elif event.type == g_const.PIECE_MANIP_RIGHT_ID:
