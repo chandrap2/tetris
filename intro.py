@@ -27,11 +27,10 @@ def main():
 		if dt >= frame_length:
 			start = time.time() # reset start tick
 
-			# handle events
-			events = evtMan.processEvents()
+			events = evtMan.processEvents() # handle events
 
 			for event in events:
-				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape7(terrain))
+				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape7(terrain)) # spawn new shape if a shape has fallen
 
 			terrain.update(events)
 

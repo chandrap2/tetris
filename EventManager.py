@@ -1,19 +1,23 @@
 import pygame as pyg, sys
 import game_constants as g_const, util
 
+# container so variable values can persist
 class EvtManContainer:
 	def __init__(self):
 		self.manipulating_piece = False
-		self.current_manip = None
+		self.current_manip = None #
 
 ev_con_one = EvtManContainer()
 
+# for starting world update ticks
 def start_world_update():
 	pyg.time.set_timer(g_const.WORLD_UPDATE_ID, g_const.dt_world_update)
 
+# for stopping world update ticks
 def stop_world_update():
 	pyg.time.set_timer(g_const.WORLD_UPDATE_ID, 0)
 
+# for starting manipulation update ticks
 def start_manip_update(manipulation):
 	event = util.create_piece_manip_ev(manipulation)
 
@@ -31,6 +35,7 @@ def start_manip_update(manipulation):
 	ev_con_one.manipulating_piece = True # whether a piece is being manipulated
 	ev_con_one.current_manip = manipulation
 
+# for stopping manip ticks
 def stop_manip_update():
 	pyg.time.set_timer(g_const.PIECE_MANIP_LEFT_ID, 0)
 	pyg.time.set_timer(g_const.PIECE_MANIP_RIGHT_ID, 0)
@@ -48,7 +53,7 @@ def processEvents():
 		if event.type == pyg.QUIT:
 			sys.exit()
 
-		if event.type >= pyg.USEREVENT:
+		if event.type >= pyg.USEREVENT: # repost only custom events to event queue
 			# print(event)
 
 			pyg.event.post(event)
@@ -61,7 +66,7 @@ def processEvents():
 				start_manip_update(g_const.PIECE_MANIP_RIGHT_ID)
 			elif event.key == pyg.K_e:
 				start_manip_update(g_const.PIECE_MANIP_CLOCK_ID)
-			elif event.key == pyg.K_DOWN:
+			elif event.key == pyg.K_DOWN: # shape will fall down faster
 				stop_world_update()
 				start_manip_update(g_const.PIECE_MANIP_DOWN_ID)
 

@@ -22,6 +22,7 @@ class Shape1():
 		self.orient_state = g_const.SHAPE_ORIENT_1
 		self.has_hit_bottom = False
 
+	## NOTE: update update() overwritten in Shape6 after any edits here
 	def update(self, events):
 		if not self.has_hit_bottom:
 

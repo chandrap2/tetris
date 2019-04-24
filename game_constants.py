@@ -43,4 +43,5 @@ continue_down_while_key_held = True  # whether shape can be strafed continuously
 
 PIECE_HIT_BOTTOM_ID = pyg.USEREVENT + 5
 
+# event to store square coords when it's corresponding shape falls
 SQUARE_COOR_ID = pyg.USEREVENT + 6

@@ -13,7 +13,7 @@ class Terrain:
 		for event in events:
 			if event.type == g_const.SQUARE_COOR_ID:
 				# has_landed = True
-				self.game_map[event.x][event.y] = True # mark sqaure in map
+				self.game_map[event.x][event.y] = True # mark square in map
 
 		# if has_landed:
 		# 	print(self.scans[0])
