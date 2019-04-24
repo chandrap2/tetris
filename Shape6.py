@@ -9,6 +9,8 @@ class Shape6(Shape1):
 	01.
 	23.
 	...
+
+	Can't rotate
 	"""
 	def __init__(self, terrain):
 		Shape1.__init__(self, terrain)
@@ -29,7 +31,8 @@ class Shape6(Shape1):
 						for square in self.squares:
 							pyg.event.post(pyg.event.Event(g_const.SQUARE_COOR_ID, x = square.x_block, y = square.y_block)) # events holding coords of each square
 
-					break
+						break # stop processing any other commands if fallen
+
 
 				elif event.type == g_const.PIECE_MANIP_LEFT_ID:
 					self.move_left_one_block()

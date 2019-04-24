@@ -27,6 +27,13 @@ face_surface = pyg.image.load("face.png").convert()
 dt_world_update = 750 # in ms
 dt_manip_update = 62 # in ms
 
+""" key bindings """
+KEY_STRAFE_L = pyg.K_LEFT
+KEY_STRAFE_R = pyg.K_RIGHT
+KEY_ROT_CLOCK = pyg.K_UP
+KEY_DOWN = pyg.K_DOWN
+KEY_FALL = pyg.K_SPACE
+
 """ events """
 WORLD_UPDATE_ID = pyg.USEREVENT
 WORLD_UPDATE_EV = pyg.event.Event(WORLD_UPDATE_ID)

@@ -36,7 +36,7 @@ class Shape1():
 						for square in self.squares:
 							pyg.event.post(pyg.event.Event(g_const.SQUARE_COOR_ID, x = square.x_block, y = square.y_block)) # events holding coords of each square
 
-					break
+						break # stop processing any other commands if fallen
 
 				elif event.type == g_const.PIECE_MANIP_LEFT_ID:
 					self.move_left_one_block()
@@ -93,10 +93,12 @@ class Shape1():
 			for row in range(self.origin_block.y_block - 1, self.origin_block.y_block + 2):
 				if col == self.origin_block.x_block and row == self.origin_block.y_block: continue
 
+				# can't rotate if something's inside bounding rect
 				if (col < 0 or col >= g_const.screen_w_blocks) or \
-				(row < 0 or col >= g_const.screen_h_blocks) or \
+				(row < 0 or row >= g_const.screen_h_blocks) or \
 				self.terrain.game_map[col][row]:
 					return True
+
 		return False
 
 	def draw(self):

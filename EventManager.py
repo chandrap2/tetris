@@ -60,24 +60,24 @@ def processEvents():
 			continue
 
 		if not ev_con_one.manipulating_piece and event.type == pyg.KEYDOWN:
-			if event.key == pyg.K_LEFT:
+			if event.key == g_const.KEY_STRAFE_L:
 				start_manip_update(g_const.PIECE_MANIP_LEFT_ID)
-			elif event.key == pyg.K_RIGHT:
+			elif event.key == g_const.KEY_STRAFE_R:
 				start_manip_update(g_const.PIECE_MANIP_RIGHT_ID)
-			elif event.key == pyg.K_e:
+			elif event.key == g_const.KEY_ROT_CLOCK:
 				start_manip_update(g_const.PIECE_MANIP_CLOCK_ID)
-			elif event.key == pyg.K_DOWN: # shape will fall down faster
+			elif event.key == g_const.KEY_DOWN: # shape will fall down faster
 				stop_world_update()
 				start_manip_update(g_const.PIECE_MANIP_DOWN_ID)
 
 		if event.type == pyg.KEYUP and ev_con_one.current_manip != None:
-			if event.key == pyg.K_LEFT and ev_con_one.current_manip == g_const.PIECE_MANIP_LEFT_ID:
+			if event.key == g_const.KEY_STRAFE_L and ev_con_one.current_manip == g_const.PIECE_MANIP_LEFT_ID:
 				stop_manip_update()
-			elif event.key == pyg.K_RIGHT and ev_con_one.current_manip == g_const.PIECE_MANIP_RIGHT_ID:
+			elif event.key == g_const.KEY_STRAFE_R and ev_con_one.current_manip == g_const.PIECE_MANIP_RIGHT_ID:
 				stop_manip_update()
-			elif event.key == pyg.K_e and ev_con_one.current_manip == g_const.PIECE_MANIP_CLOCK_ID:
+			elif event.key == g_const.KEY_ROT_CLOCK and ev_con_one.current_manip == g_const.PIECE_MANIP_CLOCK_ID:
 				stop_manip_update()
-			elif event.key == pyg.K_DOWN and ev_con_one.current_manip == g_const.PIECE_MANIP_DOWN_ID:
+			elif event.key == g_const.KEY_DOWN and ev_con_one.current_manip == g_const.PIECE_MANIP_DOWN_ID:
 				start_world_update()
 				stop_manip_update()
 
