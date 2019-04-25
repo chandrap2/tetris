@@ -81,11 +81,9 @@ class Shape1():
 			square.move_down(1)
 
 	def fall_down(self):
-		highest = g_const.screen_h_blocks - 1
-		dy = -1
+		dy = g_const.screen_h_blocks
 		for square in self.squares:
-			highest = min(highest, square.highestBelow()) # find highest block below entire shape
-			dy = highest - square.y_block
+			dy = min(dy, square.highestBelow() - square.y_block)
 
 		for square in self.squares:
 			square.move_down(dy)
@@ -94,17 +92,17 @@ class Shape1():
 
 	def move_right_one_block(self):
 		for square in self.squares:
-			if square.check_for_collision_to_right(2):
+			if square.check_for_collision_to_right():
 				return
 
 		for square in self.squares:
 			square.move_to_right(1)
 
-	# used when trying to rotate
+	# used when trying to rotate, checking that 1-block radius around origin block is completely free
 	def check_for_collision_around_origin(self):
 		for col in range(self.origin_block.x_block - 1, self.origin_block.x_block + 2):
 			for row in range(self.origin_block.y_block - 1, self.origin_block.y_block + 2):
-				if col == self.origin_block.x_block and row == self.origin_block.y_block: continue
+				if col == self.origin_block.x_block and row == self.origin_block.y_block: continue # ignore pos of origin block
 
 				# can't rotate if something's inside bounding rect
 				if (col < 0 or col >= g_const.screen_w_blocks) or \

@@ -4,7 +4,7 @@ from random import randint
 import game_constants as g_const
 import EventManager as evtMan
 
-from Shape7 import Shape7
+from Shapes import *
 from Terrain import Terrain
 
 pyg.init() # initialize modules
@@ -16,7 +16,7 @@ screen_dim = g_const.screen_dim
 
 def main():
 	terrain = Terrain()
-	shapes = [Shape7(terrain)]
+	shapes = [gen_shape(terrain)]
 
 	start = time.time()
 	evtMan.start_world_update()
@@ -30,7 +30,7 @@ def main():
 			events = evtMan.processEvents() # handle events
 
 			for event in events:
-				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(Shape7(terrain)) # spawn new shape if a shape has fallen
+				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(gen_shape(terrain)) # spawn new shape if a shape has fallen
 
 			terrain.update(events)
 
@@ -42,5 +42,16 @@ def main():
 
 			# update display
 			pyg.display.update()
+
+def gen_shape(terrain):
+	rand = randint(1, 7)
+
+	if rand == 1: return Shape1(terrain)
+	if rand == 2: return Shape2(terrain)
+	if rand == 3: return Shape3(terrain)
+	if rand == 4: return Shape4(terrain)
+	if rand == 5: return Shape5(terrain)
+	if rand == 6: return Shape6(terrain)
+	if rand == 7: return Shape7(terrain)
 
 main()

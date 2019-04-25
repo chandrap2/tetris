@@ -22,8 +22,9 @@ class Shape6(Shape1):
 		if not self.has_hit_bottom:
 
 			for event in events:
-				if event.type == g_const.WORLD_UPDATE_ID or event.type == g_const.PIECE_MANIP_DOWN_ID:
-					self.move_down_one_block()
+				if event.type == g_const.WORLD_UPDATE_ID or event.type == g_const.PIECE_MANIP_DOWN_ID or event.type == g_const.PIECE_MANIP_FALL_DOWN_ID:
+					if not event.type == g_const.PIECE_MANIP_FALL_DOWN_ID: self.move_down_one_block()
+					else: self.fall_down()
 
 					if self.has_hit_bottom:
 						pyg.event.post(pyg.event.Event(g_const.PIECE_HIT_BOTTOM_ID))
