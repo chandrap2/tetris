@@ -48,7 +48,9 @@ continue_rot_while_key_held = False # whether shape can be rotated continuously 
 PIECE_MANIP_DOWN_ID = pyg.USEREVENT + 4
 continue_down_while_key_held = True  # whether shape can be strafed continuously as long as keys are help down
 
-PIECE_HIT_BOTTOM_ID = pyg.USEREVENT + 5
+PIECE_MANIP_FALL_DOWN_ID = pyg.USEREVENT + 5
+
+PIECE_HIT_BOTTOM_ID = pyg.USEREVENT + 6
 
 # event to store square coords when it's corresponding shape falls
-SQUARE_COOR_ID = pyg.USEREVENT + 6
+SQUARE_COOR_ID = pyg.USEREVENT + 7

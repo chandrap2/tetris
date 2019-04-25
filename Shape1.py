@@ -27,8 +27,9 @@ class Shape1():
 		if not self.has_hit_bottom:
 
 			for event in events:
-				if event.type == g_const.WORLD_UPDATE_ID or event.type == g_const.PIECE_MANIP_DOWN_ID:
-					self.move_down_one_block()
+				if event.type == g_const.WORLD_UPDATE_ID or event.type == g_const.PIECE_MANIP_DOWN_ID or event.type == g_const.PIECE_MANIP_FALL_DOWN_ID:
+					if not event.type == g_const.PIECE_MANIP_FALL_DOWN_ID: self.move_down_one_block()
+					else: self.fall_down()
 
 					if self.has_hit_bottom:
 						pyg.event.post(pyg.event.Event(g_const.PIECE_HIT_BOTTOM_ID))
@@ -79,9 +80,21 @@ class Shape1():
 		for square in self.squares:
 			square.move_down(1)
 
+	def fall_down(self):
+		highest = g_const.screen_h_blocks - 1
+		dy = -1
+		for square in self.squares:
+			highest = min(highest, square.highestBelow()) # find highest block below entire shape
+			dy = highest - square.y_block
+
+		for square in self.squares:
+			square.move_down(dy)
+
+		self.has_hit_bottom = True
+
 	def move_right_one_block(self):
 		for square in self.squares:
-			if square.check_for_collision_to_right():
+			if square.check_for_collision_to_right(2):
 				return
 
 		for square in self.squares:

@@ -23,7 +23,11 @@ def start_manip_update(manipulation):
 
 	pyg.event.post(event)
 
-	if manipulation == g_const.PIECE_MANIP_LEFT_ID or manipulation == g_const.PIECE_MANIP_RIGHT_ID:
+	if manipulation == g_const.PIECE_MANIP_FALL_DOWN_ID:
+		stop_world_update()
+		start_world_update()
+
+	elif manipulation == g_const.PIECE_MANIP_LEFT_ID or manipulation == g_const.PIECE_MANIP_RIGHT_ID:
 		if g_const.continue_strafe_while_key_held: pyg.time.set_timer(manipulation, g_const.dt_manip_update)
 
 	elif manipulation == g_const.PIECE_MANIP_CLOCK_ID:
@@ -66,7 +70,9 @@ def processEvents():
 				start_manip_update(g_const.PIECE_MANIP_RIGHT_ID)
 			elif event.key == g_const.KEY_ROT_CLOCK:
 				start_manip_update(g_const.PIECE_MANIP_CLOCK_ID)
-			elif event.key == g_const.KEY_DOWN: # shape will fall down faster
+			elif event.key == g_const.KEY_FALL:
+				start_manip_update(g_const.PIECE_MANIP_FALL_DOWN_ID)
+			elif event.key == g_const.KEY_DOWN: # shape will fall down faster, world ticks ill be stopped momentarily
 				stop_world_update()
 				start_manip_update(g_const.PIECE_MANIP_DOWN_ID)
 
@@ -77,7 +83,9 @@ def processEvents():
 				stop_manip_update()
 			elif event.key == g_const.KEY_ROT_CLOCK and ev_con_one.current_manip == g_const.PIECE_MANIP_CLOCK_ID:
 				stop_manip_update()
-			elif event.key == g_const.KEY_DOWN and ev_con_one.current_manip == g_const.PIECE_MANIP_DOWN_ID:
+			elif event.key == g_const.KEY_FALL and ev_con_one.current_manip == g_const.PIECE_MANIP_FALL_DOWN_ID:
+				stop_manip_update()
+			elif event.key == g_const.KEY_DOWN and ev_con_one.current_manip == g_const.PIECE_MANIP_DOWN_ID: # world ticks will resume
 				start_world_update()
 				stop_manip_update()
 

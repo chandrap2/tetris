@@ -33,7 +33,6 @@ class Shape6(Shape1):
 
 						break # stop processing any other commands if fallen
 
-
 				elif event.type == g_const.PIECE_MANIP_LEFT_ID:
 					self.move_left_one_block()
 
