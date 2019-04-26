@@ -4,9 +4,8 @@ import game_constants as g_const, util
 from Terrain import Terrain
 
 class Square():
-
 	def __init__(self, terrain, init_x_block = 0, init_y_block = 0):
-		self.screen_dim = g_const.screen_dim
+		self.screen_dim = g_const.screen_size
 		self.terrain = terrain
 
 		# surface to be displayed, rect to be transformed
@@ -36,8 +35,8 @@ class Square():
 
 	# update pixel position of Rect instance
 	def update_pixel_pos(self):
-		self.s_rect.x = self.x_block * g_const.square_size
-		self.s_rect.y = self.y_block * g_const.square_size
+		self.s_rect.x = self.x_block * g_const.square_size + g_const.UI_LEFT_MARGIN
+		self.s_rect.y = self.y_block * g_const.square_size + g_const.UI_TOP_MARGIN
 
 	def get_block_pos(self):
 		return (self.x_block, self.y_block)

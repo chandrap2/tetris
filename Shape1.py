@@ -13,7 +13,7 @@ class Shape1():
 	"""
 
 	def __init__(self, terrain):
-		self.screen = g_const.screen
+		# self.screen = g_const.screen
 		self.terrain = terrain
 
 		self.squares = [Square(terrain), Square(terrain, 1, 0), Square(terrain, 1, 1), Square(terrain, 2, 1)]
@@ -114,4 +114,4 @@ class Shape1():
 
 	def draw(self):
 		for square in self.squares:
-			self.screen.blit(square.s_surface, square.get_pixel_pos())
+			g_const.screen.blit(square.s_surface, square.get_pixel_pos())

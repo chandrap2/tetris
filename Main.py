@@ -7,12 +7,16 @@ import EventManager as evtMan
 from Shapes import *
 from Terrain import Terrain
 
+from Background import Background
+from Arena import Arena
+
 pyg.init() # initialize modules
 pyg.event.set_blocked([pyg.MOUSEMOTION, pyg.MOUSEBUTTONUP, pyg.MOUSEBUTTONDOWN]) # blocking unwanted events
 
 frame_length = g_const.frame_length # in seconds
 screen = g_const.screen
-screen_dim = g_const.screen_dim
+background = Background()
+arena = Arena()
 
 def main():
 	terrain = Terrain()
@@ -20,6 +24,8 @@ def main():
 
 	start = time.time()
 	evtMan.start_world_update()
+
+	background.draw()
 
 	while True:
 		dt = time.time() - start
@@ -35,7 +41,8 @@ def main():
 			terrain.update(events)
 
 			# draw background and objects
-			screen.fill((0, 0, 0))
+			# screen.fill((0, 0, 0))
+			arena.draw()
 			for shape in shapes:
 				shape.update(events)
 				shape.draw()
