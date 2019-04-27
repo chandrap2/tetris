@@ -5,12 +5,10 @@ from Terrain import Terrain
 
 class Square():
 	def __init__(self, terrain, init_x_block = 0, init_y_block = 0):
-		self.screen_dim = g_const.screen_size
 		self.terrain = terrain
 
 		# surface to be displayed, rect to be transformed
-		self.s_surface = g_const.face_surface
-		self.s_surface = pyg.transform.scale(self.s_surface, (g_const.square_size, g_const.square_size))
+		self.s_surface = pyg.transform.scale(g_const.face_surface, (g_const.square_size, g_const.square_size))
 		self.s_rect = self.s_surface.get_rect() # pos is (0, 0)
 
 		self.x_block, self.y_block = init_x_block, init_y_block
@@ -35,7 +33,7 @@ class Square():
 
 	# update pixel position of Rect instance
 	def update_pixel_pos(self):
-		self.s_rect.x = self.x_block * g_const.square_size + g_const.UI_LEFT_MARGIN
+		self.s_rect.x = self.x_block * g_const.square_size + g_const.UI_LEFT_MARGIN # offset by arena margins
 		self.s_rect.y = self.y_block * g_const.square_size + g_const.UI_TOP_MARGIN
 
 	def get_block_pos(self):
