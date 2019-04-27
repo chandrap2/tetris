@@ -81,7 +81,7 @@ class Shape1():
 			square.move_down(1)
 
 	def fall_down(self):
-		dy = g_const.screen_h_blocks
+		dy = g_const.arena_h_blocks
 		for square in self.squares:
 			dy = min(dy, square.highestBelow() - square.y_block)
 
@@ -105,8 +105,8 @@ class Shape1():
 				if col == self.origin_block.x_block and row == self.origin_block.y_block: continue # ignore pos of origin block
 
 				# can't rotate if something's inside bounding rect
-				if (col < 0 or col >= g_const.screen_w_blocks) or \
-				(row < 0 or row >= g_const.screen_h_blocks) or \
+				if (col < 0 or col >= g_const.arena_w_blocks) or \
+				(row < 0 or row >= g_const.arena_h_blocks) or \
 				self.terrain.game_map[col][row]:
 					return True
 

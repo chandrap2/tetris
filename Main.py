@@ -7,16 +7,17 @@ import EventManager as evtMan
 from Shapes import *
 from Terrain import Terrain
 
-from Background import Background
-from Arena import Arena
+from UIBox import UIBox
 
 pyg.init() # initialize modules
 pyg.event.set_blocked([pyg.MOUSEMOTION, pyg.MOUSEBUTTONUP, pyg.MOUSEBUTTONDOWN]) # blocking unwanted events
 
 frame_length = g_const.frame_length # in seconds
 screen = g_const.screen
-background = Background()
-arena = Arena()
+
+background = UIBox(g_const.screen_size, (0, 0, 0), (0, 0))
+arena = UIBox(g_const.arena_size, (50, 50, 50), g_const.arena_pos)
+sidebar = UIBox(g_const.sidebar_size, (50, 50, 50), g_const.sidebar_pos)
 
 def main():
 	terrain = Terrain()
@@ -43,6 +44,7 @@ def main():
 			# draw background and objects
 			# screen.fill((0, 0, 0))
 			arena.draw()
+			sidebar.draw()
 			for shape in shapes:
 				shape.update(events)
 				shape.draw()

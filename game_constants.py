@@ -7,20 +7,24 @@ pyg.init()
 square_size = 40
 
 """ UI constants """
-UI_LEFT_MARGIN = 10
-UI_TOP_MARGIN = 10
-UI_RIGHT_MARGIN = square_size * 4 + 50 * 2
-UI_BOTTOM_MARGIN = 10
+UI_BOX_MARGIN = 10
 
 """ general game constants """
 fps = 120 # desired framerate
 frame_length = 1.0 / fps # in seconds
 
-screen_w_blocks, screen_h_blocks = 10, 20
-arena_size = (screen_w_blocks * square_size, screen_h_blocks * square_size)
-screen_size = (UI_LEFT_MARGIN + screen_w_blocks * square_size + UI_RIGHT_MARGIN, \
-UI_TOP_MARGIN + screen_h_blocks * square_size + UI_BOTTOM_MARGIN)
+arena_w_blocks, arena_h_blocks = 10, 20
 
+arena_w, arena_h = arena_w_blocks * square_size, arena_h_blocks * square_size
+arena_size = arena_w, arena_h
+arena_pos = (UI_BOX_MARGIN, UI_BOX_MARGIN)
+
+sidebar_w, sidebar_h = 6 * square_size, arena_h_blocks * square_size
+sidebar_size = sidebar_w, sidebar_h
+sidebar_pos = (2 * UI_BOX_MARGIN + arena_w_blocks * square_size, UI_BOX_MARGIN)
+
+screen_size = (3 * UI_BOX_MARGIN + arena_w + sidebar_w, \
+2 * UI_BOX_MARGIN + arena_h)
 screen = pyg.display.set_mode(screen_size)
 
 face_surface = pyg.image.load("face.png").convert()

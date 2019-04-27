@@ -4,8 +4,8 @@ class Terrain:
 	def __init__(self):
 		self.game_map = []
 
-		for x in range(g_const.screen_w_blocks): # each element is a column
-			self.game_map.append([False for y in range(g_const.screen_h_blocks)]) # False if space is unoccupied
+		for x in range(g_const.arena_w_blocks): # each element is a column
+			self.game_map.append([False for y in range(g_const.arena_h_blocks)]) # False if space is unoccupied
 
 	def update(self, events):
 		# has_landed = False
@@ -18,7 +18,7 @@ class Terrain:
 		# if has_landed:
 		# 	print(self.scans[0])
 		#
-		# 	for i in range(g_const.screen_h_blocks):
-		# 		for j in range(g_const.screen_w_blocks):
+		# 	for i in range(g_const.arena_h_blocks):
+		# 		for j in range(g_const.arena_w_blocks):
 		# 			print(("#" if self.game_map[j][i] else "+"), end = " ")
 		# 		print()

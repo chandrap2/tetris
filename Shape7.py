@@ -79,8 +79,8 @@ class Shape7(Shape1):
 		for col in range(self.ref_x_block, self.ref_x_block + 4):
 			for row in range(self.ref_y_block, self.ref_y_block + 4):
 				# can't rotate if something's inside bounding rect
-				if (col < 0 or col >= g_const.screen_w_blocks) or \
-				(row < 0 or row >= g_const.screen_h_blocks) or \
+				if (col < 0 or col >= g_const.arena_w_blocks) or \
+				(row < 0 or row >= g_const.arena_h_blocks) or \
 				self.terrain.game_map[col][row]:
 					return True
 

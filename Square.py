@@ -33,8 +33,8 @@ class Square():
 
 	# update pixel position of Rect instance
 	def update_pixel_pos(self):
-		self.s_rect.x = self.x_block * g_const.square_size + g_const.UI_LEFT_MARGIN # offset by arena margins
-		self.s_rect.y = self.y_block * g_const.square_size + g_const.UI_TOP_MARGIN
+		self.s_rect.x = self.x_block * g_const.square_size + g_const.UI_BOX_MARGIN # offset by arena margins
+		self.s_rect.y = self.y_block * g_const.square_size + g_const.UI_BOX_MARGIN
 
 	def get_block_pos(self):
 		return (self.x_block, self.y_block)
@@ -46,13 +46,13 @@ class Square():
 		return (self.x_block == 0 or self.terrain.game_map[self.x_block - 1][self.y_block] == True)
 
 	def check_for_collision_below(self):
-		return (self.y_block == g_const.screen_h_blocks - 1 or self.terrain.game_map[self.x_block][self.y_block + 1] == True)
+		return (self.y_block == g_const.arena_h_blocks - 1 or self.terrain.game_map[self.x_block][self.y_block + 1] == True)
 
 	def check_for_collision_to_right(self):
-		return (self.x_block == g_const.screen_w_blocks - 1 or self.terrain.game_map[self.x_block + 1][self.y_block] == True)
+		return (self.x_block == g_const.arena_w_blocks - 1 or self.terrain.game_map[self.x_block + 1][self.y_block] == True)
 
 	# return index of highest FREE block below a given row in any given column
 	def highestBelow(self):
-		for row in range(self.y_block + 1, g_const.screen_h_blocks):
+		for row in range(self.y_block + 1, g_const.arena_h_blocks):
 			if self.terrain.game_map[self.x_block][row]: return row - 1
-		return g_const.screen_h_blocks - 1
+		return g_const.arena_h_blocks - 1
