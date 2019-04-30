@@ -6,6 +6,7 @@ import EventManager as evtMan
 
 from Shapes import *
 from Terrain import Terrain
+from EventManager import EventManager
 
 from UIBox import UIBox
 
@@ -15,18 +16,18 @@ pyg.event.set_blocked([pyg.MOUSEMOTION, pyg.MOUSEBUTTONUP, pyg.MOUSEBUTTONDOWN])
 frame_length = g_const.frame_length # in seconds
 screen = g_const.screen
 
-background = UIBox(g_const.screen_size, (0, 0, 0), (0, 0))
-arena = UIBox(g_const.arena_size, (50, 50, 50), g_const.arena_pos)
-sidebar = UIBox(g_const.sidebar_size, (50, 50, 50), g_const.sidebar_pos)
-
 def main():
+	background = UIBox(g_const.screen_size, (0, 0, 0), (0, 0))
+	arena = UIBox(g_const.arena_size, (50, 50, 50), g_const.arena_pos)
+	sidebar = UIBox(g_const.sidebar_size, (50, 50, 50), g_const.sidebar_pos)
+	background.draw()
+
+	evt_man = EventManager()
 	terrain = Terrain()
 	shapes = [gen_shape(terrain)]
 
 	start = time.time()
-	evtMan.start_world_update()
-
-	background.draw()
+	evt_man.start_world_update()
 
 	while True:
 		dt = time.time() - start
@@ -34,7 +35,7 @@ def main():
 		if dt >= frame_length:
 			start = time.time() # reset start tick
 
-			events = evtMan.processEvents() # handle events
+			events = evt_man.processEvents() # handle events
 
 			for event in events:
 				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(gen_shape(terrain)) # spawn new shape if a shape has fallen
@@ -48,7 +49,7 @@ def main():
 			for shape in shapes:
 				shape.update(events)
 				shape.draw()
-
+			
 			# update display
 			pyg.display.update()
 
