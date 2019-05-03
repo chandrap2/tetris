@@ -56,3 +56,6 @@ class Square():
 		for row in range(self.y_block + 1, g_const.arena_h_blocks):
 			if self.terrain.game_map[self.x_block][row]: return row - 1
 		return g_const.arena_h_blocks - 1
+
+	def draw(self):
+		g_const.screen.blit(self.s_surface, self.get_pixel_pos())

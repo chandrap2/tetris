@@ -63,3 +63,6 @@ PIECE_MANIP_FALL_DOWN_ID = pyg.USEREVENT + 5
 PIECE_HIT_BOTTOM_ID = pyg.USEREVENT + 6
 
 SQUARE_COOR_ID = pyg.USEREVENT + 7 # event to store square coords when it's corresponding shape falls
+
+""" game states """
+PLAY_STATE = 0

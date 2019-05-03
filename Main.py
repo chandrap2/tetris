@@ -7,6 +7,7 @@ import EventManager as evtMan
 from Shapes import *
 from Terrain import Terrain
 from EventManager import EventManager
+from GameState import GameState
 
 from UIBox import UIBox
 
@@ -21,10 +22,12 @@ def main():
 	arena = UIBox(g_const.arena_size, (50, 50, 50), g_const.arena_pos)
 	sidebar = UIBox(g_const.sidebar_size, (50, 50, 50), g_const.sidebar_pos)
 	background.draw()
+	sidebar.draw()
 
 	evt_man = EventManager()
 	terrain = Terrain()
 	shapes = [gen_shape(terrain)]
+	game_state = GameState(terrain)
 
 	start = time.time()
 	evt_man.start_world_update()
@@ -40,16 +43,21 @@ def main():
 			for event in events:
 				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(gen_shape(terrain)) # spawn new shape if a shape has fallen
 
+			game_state.update(events)
 			terrain.update(events)
 
 			# draw background and objects
-			# screen.fill((0, 0, 0))
 			arena.draw()
-			sidebar.draw()
-			for shape in shapes:
-				shape.update(events)
-				shape.draw()
-			
+			game_state.curr_shape.draw()
+			# for shape in shapes:
+			# 	shape.update(events)
+			# 	shape.draw()
+			for square in game_state.fallen_squares:
+				# shape.update(events)
+				# shape.draw()
+				square.draw()
+
+
 			# update display
 			pyg.display.update()
 

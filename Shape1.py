@@ -114,4 +114,4 @@ class Shape1():
 
 	def draw(self):
 		for square in self.squares:
-			g_const.screen.blit(square.s_surface, square.get_pixel_pos())
+			square.draw()
