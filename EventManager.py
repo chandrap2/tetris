@@ -56,10 +56,6 @@ class EventManager:
 				sys.exit()
 
 			if event.type >= pyg.USEREVENT: # repost only custom events to event queue
-				print(event)
-				if event.type == g_const.ROW_FULL_ID:
-					print("row")
-
 				pyg.event.post(event)
 				continue
 
