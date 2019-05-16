@@ -50,7 +50,7 @@ WORLD_UPDATE_ID = pyg.USEREVENT
 
 PIECE_MANIP_LEFT_ID = pyg.USEREVENT + 1
 PIECE_MANIP_RIGHT_ID = pyg.USEREVENT + 2
-continue_strafe_while_key_held = False # whether shape can be strafed continuously as long as keys are help down
+continue_strafe_while_key_held = True # whether shape can be strafed continuously as long as keys are help down
 
 PIECE_MANIP_CLOCK_ID = pyg.USEREVENT + 3
 continue_rot_while_key_held = False # whether shape can be rotated continuously as long as keys are help down
@@ -64,5 +64,8 @@ PIECE_HIT_BOTTOM_ID = pyg.USEREVENT + 6
 
 SQUARE_COOR_ID = pyg.USEREVENT + 7 # event to store square coords when it's corresponding shape falls
 
+ROW_FULL_ID = pyg.USEREVENT + 8 # event to store y coordinate of a full row
+
 """ game states """
 PLAY_STATE = 0
+ROW_DEL_PHASE = 1

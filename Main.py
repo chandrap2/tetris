@@ -26,7 +26,6 @@ def main():
 
 	evt_man = EventManager()
 	terrain = Terrain()
-	shapes = [gen_shape(terrain)]
 	game_state = GameState(terrain)
 
 	start = time.time()
@@ -40,36 +39,20 @@ def main():
 
 			events = evt_man.processEvents() # handle events
 
-			for event in events:
-				if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(gen_shape(terrain)) # spawn new shape if a shape has fallen
+			# for event in events:
+			# 	if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(gen_shape(terrain)) # spawn new shape if a shape has fallen
 
 			game_state.update(events)
-			terrain.update(events)
 
 			# draw background and objects
 			arena.draw()
 			game_state.curr_shape.draw()
-			# for shape in shapes:
-			# 	shape.update(events)
-			# 	shape.draw()
-			for square in game_state.fallen_squares:
-				# shape.update(events)
-				# shape.draw()
-				square.draw()
 
+			for col in terrain.game_map:
+				for square in col:
+					if square != None: square.draw()
 
 			# update display
 			pyg.display.update()
-
-def gen_shape(terrain):
-	rand = randint(1, 7)
-
-	if rand == 1: return Shape1(terrain)
-	if rand == 2: return Shape2(terrain)
-	if rand == 3: return Shape3(terrain)
-	if rand == 4: return Shape4(terrain)
-	if rand == 5: return Shape5(terrain)
-	if rand == 6: return Shape6(terrain)
-	if rand == 7: return Shape7(terrain)
 
 main()

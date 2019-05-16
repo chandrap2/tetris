@@ -56,7 +56,9 @@ class EventManager:
 				sys.exit()
 
 			if event.type >= pyg.USEREVENT: # repost only custom events to event queue
-				# print(event)
+				print(event)
+				if event.type == g_const.ROW_FULL_ID:
+					print("row")
 
 				pyg.event.post(event)
 				continue
@@ -88,4 +90,5 @@ class EventManager:
 					self.start_world_update()
 					self.stop_manip_update()
 
-		return pyg.event.get()
+		events = pyg.event.get()
+		return events

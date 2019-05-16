@@ -48,7 +48,7 @@ class Shape7(Shape1):
 
 	def move_left_one_block(self):
 		for square in self.squares:
-			if square.check_for_collision_to_left():
+			if self.terrain.check_for_collision_to_left(square):
 				return
 
 		self.ref_x_block -= 1
@@ -57,7 +57,7 @@ class Shape7(Shape1):
 
 	def move_down_one_block(self):
 		for square in self.squares:
-			if square.check_for_collision_below():
+			if self.terrain.check_for_collision_below(square):
 				self.has_hit_bottom = True # updates shape state if any square is touching something below it
 				return
 
@@ -67,7 +67,7 @@ class Shape7(Shape1):
 
 	def move_right_one_block(self):
 		for square in self.squares:
-			if square.check_for_collision_to_right():
+			if self.terrain.check_for_collision_to_right(square):
 				return
 
 		self.ref_x_block += 1
@@ -81,7 +81,7 @@ class Shape7(Shape1):
 				# can't rotate if something's inside bounding rect
 				if (col < 0 or col >= g_const.arena_w_blocks) or \
 				(row < 0 or row >= g_const.arena_h_blocks) or \
-				self.terrain.game_map[col][row]:
+				self.terrain.game_map[col][row] != None:
 					return True
 
 		return False

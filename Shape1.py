@@ -16,7 +16,7 @@ class Shape1():
 		# self.screen = g_const.screen
 		self.terrain = terrain
 
-		self.squares = [Square(terrain), Square(terrain, 1, 0), Square(terrain, 1, 1), Square(terrain, 2, 1)]
+		self.squares = [Square(), Square(1, 0), Square(1, 1), Square(2, 1)]
 		self.origin_block = self.squares[1] # second element is square of reference
 
 		self.orient_state = g_const.SHAPE_ORIENT_1
@@ -65,7 +65,7 @@ class Shape1():
 
 	def move_left_one_block(self):
 		for square in self.squares:
-			if square.check_for_collision_to_left():
+			if self.terrain.check_for_collision_to_left(square):
 				return
 
 		for square in self.squares:
@@ -73,7 +73,7 @@ class Shape1():
 
 	def move_down_one_block(self):
 		for square in self.squares:
-			if square.check_for_collision_below():
+			if self.terrain.check_for_collision_below(square):
 				self.has_hit_bottom = True # updates shape state if any square is touching something below it
 				return
 
@@ -83,7 +83,7 @@ class Shape1():
 	def fall_down(self):
 		dy = g_const.arena_h_blocks
 		for square in self.squares:
-			dy = min(dy, square.highestBelow() - square.y_block)
+			dy = min(dy, self.terrain.highestBelow(square) - square.y_block)
 
 		for square in self.squares:
 			square.move_down(dy)
@@ -92,7 +92,7 @@ class Shape1():
 
 	def move_right_one_block(self):
 		for square in self.squares:
-			if square.check_for_collision_to_right():
+			if self.terrain.check_for_collision_to_right(square):
 				return
 
 		for square in self.squares:
@@ -107,7 +107,7 @@ class Shape1():
 				# can't rotate if something's inside bounding rect
 				if (col < 0 or col >= g_const.arena_w_blocks) or \
 				(row < 0 or row >= g_const.arena_h_blocks) or \
-				self.terrain.game_map[col][row]:
+				self.terrain.game_map[col][row] != None:
 					return True
 
 		return False

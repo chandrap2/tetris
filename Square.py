@@ -1,12 +1,8 @@
 import pygame as pyg
 import game_constants as g_const, util
 
-from Terrain import Terrain
-
 class Square():
-	def __init__(self, terrain, init_x_block = 0, init_y_block = 0):
-		self.terrain = terrain
-
+	def __init__(self, init_x_block = 0, init_y_block = 0):
 		# surface to be displayed, rect to be transformed
 		self.s_surface = pyg.transform.scale(g_const.face_surface, (g_const.square_size, g_const.square_size))
 		self.s_rect = self.s_surface.get_rect() # pos is (0, 0)
@@ -41,21 +37,6 @@ class Square():
 
 	def get_pixel_pos(self):
 		return (self.s_rect.x, self.s_rect.y)
-
-	def check_for_collision_to_left(self):
-		return (self.x_block == 0 or self.terrain.game_map[self.x_block - 1][self.y_block] == True)
-
-	def check_for_collision_below(self):
-		return (self.y_block == g_const.arena_h_blocks - 1 or self.terrain.game_map[self.x_block][self.y_block + 1] == True)
-
-	def check_for_collision_to_right(self):
-		return (self.x_block == g_const.arena_w_blocks - 1 or self.terrain.game_map[self.x_block + 1][self.y_block] == True)
-
-	# return index of highest FREE block below a given row in any given column
-	def highestBelow(self):
-		for row in range(self.y_block + 1, g_const.arena_h_blocks):
-			if self.terrain.game_map[self.x_block][row]: return row - 1
-		return g_const.arena_h_blocks - 1
 
 	def draw(self):
 		g_const.screen.blit(self.s_surface, self.get_pixel_pos())
