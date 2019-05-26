@@ -31,11 +31,11 @@ class GameState:
 
 	def process_events(self, events):
 		for event in events:
-			if event.type == g_const.PIECE_HIT_BOTTOM_ID:
+			if event.cus_event == g_const.PIECE_HIT_BOTTOM_ID:
 				self.curr_shape = self.next_shape
 				self.next_shape = util.gen_shape(self.terrain)
-			if event.type == g_const.SQUARE_COOR_ID:
-				self.row_sizes[event.y] += 1
+			if event.cus_event == g_const.SQUARE_COOR_ID:
+				self.row_sizes[event.params[1]] += 1
 
-				if self.row_sizes[event.y] == g_const.arena_w_blocks:
-					pyg.event.post(pyg.event.Event(g_const.ROW_FULL_ID, y = event.y))
+				if self.row_sizes[event.params[1]] == g_const.arena_w_blocks:
+					util.post_custom_event(g_const.ROW_FULL_ID, [event.params[1]])

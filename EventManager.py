@@ -1,20 +1,29 @@
 import pygame as pyg, sys
 import game_constants as g_const, util
 
+from pygame.time import Clock as Clock
+
 class EventManager:
 	def __init__(self):
 		self.current_manip = None
 		self.is_world_down = True # True if falling by gravity, False if falling due to player
 		self.is_strafe_rot = False
 
-		self.move_down_manip_clock = pyg.time.Clock()
-		self.strafe_rot_manip_clock = pyg.time.Clock()
+		self.move_down_manip_clock = Clock()
+		self.strafe_rot_manip_clock = Clock()
+
+		self.move_down_secs = 0
+		self.strafe_rot_secs = 0
+
+	def update_clocks(self):
+		self.move_down_secs += self.move_down_manip_clock.tick()
+		self.strafe_rot_secs += self.strafe_rot_manip_clock.tick()
 
 	# for starting world update ticks
 	def start_world_update(self):
 		self.is_world_down = True
 		self.move_down_manip_clock = Clock()
-		self.move_down_manip_clock.tick()
+		self.move_down_secs = 0 # reset timer
 
 	# for starting manipulation update ticks
 	def start_manip_update(self, manipulation):
@@ -24,28 +33,29 @@ class EventManager:
 			self.start_world_update()
 			return # reset world_manip ticks, but don't change current_manip state
 
-		elif manipulation == g_const.PIECE_MANIP_LEFT_ID or manipulation == g_const.PIECE_MANIP_RIGHT_ID:
-			if g_const.continue_strafe_while_key_held:
-				self.is_strafe_rot = True
+		elif manipulation >= g_const.PIECE_MANIP_LEFT_ID and manipulation <= g_const.PIECE_MANIP_CLOCK_ID:
+			if manipulation <= g_const.PIECE_MANIP_RIGHT_ID:
+				if g_const.continue_strafe_while_key_held:
+					self.is_strafe_rot = True
 
-				self.strafe_rot_manip_clock = Clock()
-				self.strafe_rot_manip_clock.tick()
-			else: return # don't change current_manip state if action is not repeated
+					self.strafe_rot_manip_clock = Clock()
+					self.strafe_rot_secs = 0 # reset timer
+				else: return # don't change current_manip state if action is not repeated
 
-		elif manipulation == g_const.PIECE_MANIP_CLOCK_ID:
-			if g_const.continue_rot_while_key_held:
-				self.is_strafe_rot = True
+			else:
+				if g_const.continue_rot_while_key_held:
+					self.is_strafe_rot = True
 
-				self.strafe_rot_manip_clock = Clock()
-				self.strafe_rot_manip_clock.tick()
-			else: return
+					self.strafe_rot_manip_clock = Clock()
+					self.strafe_rot_secs = 0
+				else: return
 
 		else: # down
 			if g_const.continue_down_while_key_held:
 				self.is_world_down = False
 
 				self.move_down_manip_clock = Clock()
-				self.move_down_manip_clock.tick()
+				self.move_down_secs = 0
 			else: return
 
 		self.current_manip = manipulation
@@ -58,8 +68,8 @@ class EventManager:
 		self.current_manip = None
 
 	def processEvents(self):
-		self.post_move_down_event()
-		self.post_strafe_rot_event(self.current_manip)
+		self.update_clocks()
+		self.post_movement_event(self.current_manip)
 
 		events = pyg.event.get() # store, then clear event queue
 
@@ -101,15 +111,17 @@ class EventManager:
 		events = pyg.event.get()
 		return events
 
-	def post_move_down_event(self):
-		if is_world_down:
-			if move_down_manip_clock.tick() >= g_const.dt_world_update:
-				pyg.event.post(pyg.event.Event(pyg.USEREVENT, event = g_const.WORLD_UPDATE_ID, params = []))
+	def post_movement_event(self, current_manip):
+		if self.is_world_down:
+			if self.move_down_secs >= g_const.dt_world_update:
+				self.move_down_secs = 0
+				util.post_custom_event(g_const.WORLD_UPDATE_ID)
 
 		else: # down manip
-			if move_down_manip_clock.tick() >= g_const.dt_manip_update:
-				pyg.event.post(pyg.event.Event(pyg.USEREVENT, event = g_const.PIECE_MANIP_DOWN_ID, params = []))
+			if self.move_down_secs >= g_const.dt_manip_update:
+				self.move_down_secs = 0
+				util.post_custom_event(g_const.PIECE_MANIP_DOWN_ID)
 
-	def post_strafe_rot_event(self, manipulation):
-		if strafe_rot_manip_clock.tick() >= g_const.dt_manip_update:
-			util.post_piece_manip_ev(manipulation)
+		if self.is_strafe_rot and self.strafe_rot_secs >= g_const.dt_manip_update:
+			self.strafe_rot_secs = 0 # reset timer
+			util.post_piece_manip_ev(current_manip)

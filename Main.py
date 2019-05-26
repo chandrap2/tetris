@@ -39,9 +39,6 @@ def main():
 
 			events = evt_man.processEvents() # handle events
 
-			# for event in events:
-			# 	if event.type == g_const.PIECE_HIT_BOTTOM_ID: shapes.append(gen_shape(terrain)) # spawn new shape if a shape has fallen
-
 			game_state.update(events)
 
 			# draw background and objects

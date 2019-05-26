@@ -5,7 +5,10 @@ import game_constants as g_const
 from Shapes import *
 
 def post_piece_manip_ev(manipulation):
-	pyg.event.post(pyg.event.Event(pyg.USEREVENT, event = manipulation, params = []))
+	post_custom_event(manipulation)
+
+def post_custom_event(cus_event, params = []):
+	pyg.event.post(pyg.event.Event(pyg.USEREVENT, cus_event = cus_event, params = params))
 
 def gen_shape(terrain):
 	rand = randint(1, 7)
