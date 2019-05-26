@@ -12,11 +12,13 @@ class Terrain:
 		# has_landed = False
 
 		for event in events:
-			if event.type == g_const.SQUARE_COOR_ID:
+			if event.cus_event == g_const.SQUARE_COOR_ID:
 				# has_landed = True
-				self.game_map[event.x][event.y] = Square(event.x, event.y) # mark square in map
-			elif event.type == g_const.ROW_FULL_ID:
-				self.collapse(event.y)
+				x = event.params[0]
+				y = event.params[1]
+				self.game_map[x][y] = Square(x, y) # mark square in map
+			elif event.cus_event == g_const.ROW_FULL_ID:
+				self.collapse(event.params[0])
 				print("collapsed")
 
 	def collapse(self, y):
