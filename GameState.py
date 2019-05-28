@@ -35,7 +35,17 @@ class GameState:
 				self.curr_shape = self.next_shape
 				self.next_shape = util.gen_shape(self.terrain)
 			if event.cus_event == g_const.SQUARE_COOR_ID:
-				self.row_sizes[event.params[1]] += 1
+				y = event.params[1]
 
-				if self.row_sizes[event.params[1]] == g_const.arena_w_blocks:
-					util.post_custom_event(g_const.ROW_FULL_ID, [event.params[1]])
+				self.row_sizes[y] += 1
+
+				if self.row_sizes[y] == g_const.arena_w_blocks:
+					self.collapse_row_sizes(y)
+					print(self.row_sizes[y])
+					util.post_custom_event(g_const.ROW_FULL_ID, [y])
+
+	def collapse_row_sizes(self, collapsed):
+		for row in range(collapsed, 0, -1):
+			self.row_sizes[row] = self.row_sizes[row - 1]
+
+		self.row_sizes[0] = 0

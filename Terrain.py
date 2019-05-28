@@ -19,11 +19,17 @@ class Terrain:
 				self.game_map[x][y] = Square(x, y) # mark square in map
 			elif event.cus_event == g_const.ROW_FULL_ID:
 				self.collapse(event.params[0])
-				print("collapsed")
+				self.print_map()
+				print("..............")
 
 	def collapse(self, y):
 		for col in self.game_map:
-			for row in range(y, -1, -1): col[row] = col[row - 1] if row != 0 else None
+			for row in range(y, -1, -1):
+				if row != 0:
+					col[row] = col[row - 1]
+					if col[row] != None: col[row].move_down(1)
+				else:
+					col[row] = None
 
 	def check_for_collision_to_left(self, square):
 		return (square.x_block == 0 or self.game_map[square.x_block - 1][square.y_block] != None)
@@ -39,3 +45,10 @@ class Terrain:
 		for row in range(square.y_block + 1, g_const.arena_h_blocks):
 			if self.game_map[square.x_block][row] != None: return row - 1
 		return g_const.arena_h_blocks - 1
+
+	def print_map(self):
+		for row in range(g_const.arena_h_blocks):
+			for col in range(g_const.arena_w_blocks):
+				print("#" if self.game_map[col][row] != None else "*", end = "")
+			print()
+		print()
