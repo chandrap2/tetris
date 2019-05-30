@@ -27,11 +27,7 @@ class Shape6(Shape1):
 					else: self.fall_down()
 
 					if self.has_hit_bottom:
-						util.post_custom_event(g_const.PIECE_HIT_BOTTOM_ID)
-
-						for square in self.squares:
-							util.post_custom_event(g_const.SQUARE_COOR_ID, [square.x_block, square.y_block])
-
+						util.post_custom_event(g_const.PIECE_HIT_BOTTOM_ID, [square.get_block_pos() for square in self.squares])
 						break # stop processing any other commands if fallen
 
 				elif event.cus_event == g_const.PIECE_MANIP_LEFT_ID:
