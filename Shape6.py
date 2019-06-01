@@ -9,11 +9,11 @@ class Shape6(Shape1):
 	01.
 	23.
 	...
-
 	Can't rotate
 	"""
 	def __init__(self, terrain):
 		Shape1.__init__(self, terrain)
+		for square in self.squares: square.set_surface(g_const.s6_surf)
 
 		self.squares[2].move_to_block(0, 1)
 		self.squares[3].move_to_block(1, 1)

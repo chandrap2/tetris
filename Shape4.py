@@ -12,6 +12,7 @@ class Shape4(Shape1):
 	"""
 	def __init__(self, terrain):
 		Shape1.__init__(self, terrain)
+		for square in self.squares: square.set_surface(g_const.s4_surf)
 
 		self.squares[0].move_to_block(0, 1)
 		self.squares[1].move_to_block(1, 1)

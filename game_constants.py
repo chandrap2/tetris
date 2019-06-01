@@ -4,7 +4,7 @@ import util
 pyg.init()
 
 """ square constants """
-square_size = 40
+square_size = 50
 
 """ UI constants """
 UI_BOX_MARGIN = 10
@@ -27,9 +27,15 @@ screen_size = (3 * UI_BOX_MARGIN + arena_w + sidebar_w, \
 2 * UI_BOX_MARGIN + arena_h)
 screen = pyg.display.set_mode(screen_size)
 
-face_surface = pyg.image.load("face.png").convert()
+s1_surf = pyg.image.load("s1.png").convert()
+s2_surf = pyg.image.load("s2.png").convert()
+s3_surf = pyg.image.load("s3.png").convert()
+s4_surf = pyg.image.load("s4.png").convert()
+s5_surf = pyg.image.load("s5.png").convert()
+s6_surf = pyg.image.load("s6.png").convert()
+s7_surf = pyg.image.load("s7.png").convert()
 
-dt_world_update = 750 # in ms
+dt_world_update = 875 # in ms
 dt_manip_update = 62 # in ms
 
 """ shape constants """

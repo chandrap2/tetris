@@ -4,7 +4,7 @@ import game_constants as g_const, util
 class Square():
 	def __init__(self, init_x_block = 0, init_y_block = 0):
 		# surface to be displayed, rect to be transformed
-		self.s_surface = pyg.transform.scale(g_const.face_surface, (g_const.square_size, g_const.square_size))
+		self.s_surface = pyg.transform.scale(g_const.s1_surf, (g_const.square_size, g_const.square_size)) # default is s1
 		self.s_rect = self.s_surface.get_rect() # pos is (0, 0)
 
 		self.x_block, self.y_block = init_x_block, init_y_block
@@ -37,6 +37,11 @@ class Square():
 
 	def get_pixel_pos(self):
 		return (self.s_rect.x, self.s_rect.y)
+
+	def set_surface(self, s_surf):
+		self.s_surface = pyg.transform.scale(s_surf, (g_const.square_size, g_const.square_size))
+		self.s_rect = self.s_surface.get_rect() # pos is (0, 0)
+		self.update_pixel_pos()
 
 	def draw(self):
 		g_const.screen.blit(self.s_surface, self.get_pixel_pos())
