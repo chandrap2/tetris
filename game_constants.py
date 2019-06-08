@@ -35,7 +35,7 @@ s5_surf = pyg.image.load("s5.png").convert()
 s6_surf = pyg.image.load("s6.png").convert()
 s7_surf = pyg.image.load("s7.png").convert()
 
-dt_world_update = 875 # in ms
+dt_world_update = 500 # in ms
 dt_manip_update = 62 # in ms
 
 """ shape constants """

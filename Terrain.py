@@ -13,11 +13,9 @@ class Terrain:
 
 		for event in events:
 			if event.cus_event == g_const.PIECE_HIT_BOTTOM_ID:
-				for square_pos in event.params:
+				for square in event.params:
 					# has_landed = True
-					x = square_pos[0]
-					y = square_pos[1]
-					self.game_map[x][y] = Square(x, y)  # mark square in map
+					self.game_map[square.x_block][square.y_block] = square  # mark square in map
 			elif event.cus_event == g_const.ROW_FULL_ID:
 				self.collapse(event.params[0])
 				# self.print_map()

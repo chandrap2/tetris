@@ -36,13 +36,16 @@ class GameState:
 				self.next_shape = util.gen_shape(self.terrain)
 				is_row_full = False
 
-				for square_pos in event.params:
-					y = square_pos[1]
+				for square in event.params:
+					y = square.y_block
 					self.row_sizes[y] += 1
 					if self.row_sizes[y] == g_const.arena_w_blocks:
 						util.post_custom_event(g_const.ROW_FULL_ID, [y])
 						print("fullaaa")
 						is_row_full = True
+
+				for row in self.row_sizes:
+					if row > g_const.arena_w_blocks: print("fill error")
 
 				if is_row_full:
 					print(self.row_sizes)
