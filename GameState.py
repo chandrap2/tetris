@@ -34,15 +34,13 @@ class GameState:
 			if event.cus_event == g_const.PIECE_HIT_BOTTOM_ID:
 				self.curr_shape = self.next_shape
 				self.next_shape = util.gen_shape(self.terrain)
-				is_row_full = False
+				full_rows = []
 
 				for square in event.params:
 					y = square.y_block
 					self.row_sizes[y] += 1
 					if self.row_sizes[y] == g_const.arena_w_blocks:
-						util.post_custom_event(g_const.ROW_FULL_ID, [y])
-						print("fullaaa")
-						is_row_full = True
+						full_rows.append()
 
 				for row in self.row_sizes:
 					if row > g_const.arena_w_blocks: print("fill error")

@@ -82,7 +82,7 @@ class Shape7(Shape1):
 				# can't rotate if something's inside bounding rect
 				if (col < 0 or col >= g_const.arena_w_blocks) or \
 				(row < 0 or row >= g_const.arena_h_blocks) or \
-				self.terrain.game_map[col][row] != None:
+				self.terrain.game_map[row][col] != None:
 					return True
 
 		return False
