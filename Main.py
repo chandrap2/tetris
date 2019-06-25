@@ -45,8 +45,8 @@ def main():
 			arena.draw()
 			game_state.curr_shape.draw()
 
-			for col in terrain.game_map:
-				for square in col:
+			for row in terrain.game_map:
+				for square in row:
 					if square != None: square.draw()
 
 			# update display

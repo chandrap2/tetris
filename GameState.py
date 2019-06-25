@@ -34,30 +34,21 @@ class GameState:
 			if event.cus_event == g_const.PIECE_HIT_BOTTOM_ID:
 				self.curr_shape = self.next_shape
 				self.next_shape = util.gen_shape(self.terrain)
+				are_rows_full = False
 				full_rows = []
 
 				for square in event.params:
 					y = square.y_block
 					self.row_sizes[y] += 1
 					if self.row_sizes[y] == g_const.arena_w_blocks:
-						full_rows.append()
+						full_rows.append(y)
+						are_rows_full = True
 
-				for row in self.row_sizes:
-					if row > g_const.arena_w_blocks: print("fill error")
-
-				if is_row_full:
-					print(self.row_sizes)
-					print()
+				if are_rows_full:
+					util.post_custom_event(g_const.ROW_FULL_ID, full_rows)
 					self.collapse_row_sizes()
 
 	def collapse_row_sizes(self):
-		# y = g_const.arena_h_blocks - 1
-		# while y >= 0:
-		# 	if self.row_sizes[y] == g_const.arena_w_blocks:
-		# 		for j in range(y, -1, -1):
-		# 			self.row_sizes[j] = self.row_sizes[j - 1] if j > 0 else 0
-		# 		continue
-		# 	y -= 1
 		temp = [0 for y in range(g_const.arena_h_blocks)]
 		curr_y = g_const.arena_h_blocks - 1 # curr location in self.row_sizes
 		temp_y = g_const.arena_h_blocks - 1 # curr location in temp list
