@@ -19,8 +19,11 @@ class Shape7(Shape1):
 		self.squares[1].move_to_block(0, 1)
 		self.squares[2].move_to_block(0, 2)
 		self.squares[3].move_to_block(0, 3)
+		self.origin_block = self.squares[0] # only used for moving shape to center of screen
 
-		self.ref_x_block, self.ref_y_block = -1, 0 # origin is top left of 4x4 bounding rect
+		self.set_init_origin_x(g_const.arena_w_blocks // 2)
+
+		self.ref_x_block, self.ref_y_block = self.origin_block.x_block - 1, 0 # origin is top left of 4x4 bounding rect
 
 	def rotate_clock(self):
 		if not self.check_for_collision_around_origin():

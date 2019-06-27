@@ -5,19 +5,18 @@ from Square import Square
 from Terrain import Terrain
 
 class Shape1():
-
 	"""
+	...
 	01.
 	.23
-	...
 	"""
-
 	def __init__(self, terrain):
 		# self.screen = g_const.screen
 		self.terrain = terrain
 
 		self.squares = [Square(), Square(1, 0), Square(1, 1), Square(2, 1)]
 		self.origin_block = self.squares[1] # second element is square of reference
+		self.set_init_origin_x(g_const.arena_w_blocks // 2)
 
 		self.orient_state = g_const.SHAPE_ORIENT_1
 		self.has_hit_bottom = False
@@ -107,6 +106,17 @@ class Shape1():
 					return True
 
 		return False
+
+	def set_init_origin_x(self, x):
+		if self.origin_block == None: return
+
+		dx = x - self.origin_block.x_block
+		for square in self.squares:
+			if not (self.origin_block.x_block == square.x_block and \
+			self.origin_block.y_block == square.y_block):
+				square.move_to_block(square.x_block + dx, square.y_block)
+
+		self.origin_block.move_to_block(x, self.origin_block.y_block)
 
 	def draw(self):
 		for square in self.squares:

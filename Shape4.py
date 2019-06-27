@@ -18,8 +18,9 @@ class Shape4(Shape1):
 		self.squares[1].move_to_block(1, 1)
 		self.squares[2].move_to_block(2, 1)
 		self.squares[3].move_to_block(2, 0)
-
 		self.origin_block = self.squares[1]
+
+		self.set_init_origin_x(g_const.arena_w_blocks // 2)
 
 	def rotate_clock(self):
 		if not self.check_for_collision_around_origin():

@@ -14,6 +14,7 @@ class GameState:
 	def __init__(self, terrain):
 		self.terrain = terrain
 
+		# self.curr_shape = Shape1(self.terrain)
 		self.curr_shape = util.gen_shape(terrain)
 		self.next_shape = util.gen_shape(terrain)
 
@@ -32,6 +33,7 @@ class GameState:
 	def process_events(self, events):
 		for event in events:
 			if event.cus_event == g_const.PIECE_HIT_BOTTOM_ID:
+				# self.curr_shape = Shape1(self.terrain)
 				self.curr_shape = self.next_shape
 				self.next_shape = util.gen_shape(self.terrain)
 				are_rows_full = False
