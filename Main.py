@@ -18,6 +18,7 @@ frame_length = g_const.frame_length # in seconds
 screen = g_const.screen
 
 def main():
+	# initializing and drawing background UI elements
 	background = UIBox(g_const.screen_size, (0, 0, 0), (0, 0))
 	arena = UIBox(g_const.arena_size, (50, 50, 50), g_const.arena_pos)
 	sidebar = UIBox(g_const.sidebar_size, (50, 50, 50), g_const.sidebar_pos)
@@ -39,9 +40,9 @@ def main():
 
 			events = evt_man.processEvents() # handle events
 
-			game_state.update(events)
+			game_state.update(events) # update game state
 
-			# draw background and objects
+			# draw objects
 			arena.draw()
 			game_state.curr_shape.draw()
 			terrain.draw()

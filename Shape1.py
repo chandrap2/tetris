@@ -40,7 +40,7 @@ class Shape1():
 				elif event.cus_event == g_const.PIECE_MANIP_RIGHT_ID:
 					self.move_right_one_block()
 
-				elif event.cus_event == g_const.PIECE_MANIP_CLOCK_ID:
+				elif event.cus_event == g_const.PIECE_MANIP_CLOCKWISE_ID:
 					# print("rotate")
 					self.rotate_clock()
 
