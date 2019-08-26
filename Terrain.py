@@ -63,3 +63,8 @@ class Terrain:
 				print("#" if self.game_map[row][col] != None else "*", end = "")
 			print()
 		print()
+
+	def draw(self):
+		for row in self.game_map:
+			for square in row:
+				if square != None: square.draw()

@@ -82,7 +82,6 @@ class EventManager:
 				pyg.event.post(event)
 				continue
 
-			# if not ev_con_one.manipulating_piece and event.type == pyg.KEYDOWN:
 			if event.type == pyg.KEYDOWN and self.current_manip == None:
 				if event.key == g_const.KEY_STRAFE_L:
 					self.start_manip_update(g_const.PIECE_MANIP_LEFT_ID)

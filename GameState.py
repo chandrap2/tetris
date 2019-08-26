@@ -21,6 +21,8 @@ class GameState:
 		self.row_sizes = [0 for y in range(g_const.arena_h_blocks)]
 
 		self.curr_state = g_const.PLAY_STATE
+		self.line_clears = 0
+		self.level = 0
 		self.score = 0
 
 	def update(self, events):
@@ -33,7 +35,7 @@ class GameState:
 	def process_events(self, events):
 		for event in events:
 			if event.cus_event == g_const.PIECE_HIT_BOTTOM_ID:
-				# self.curr_shape = Shape1(self.terrain)
+				# self.curr_shape = Shape1(self.terrain)	# for testing
 				self.curr_shape = self.next_shape
 				self.next_shape = util.gen_shape(self.terrain)
 				are_rows_full = False
@@ -44,9 +46,18 @@ class GameState:
 					self.row_sizes[y] += 1
 					if self.row_sizes[y] == g_const.arena_w_blocks:
 						full_rows.append(y)
+
+						self.line_clears += 1
+						if self.line_clears == 10:
+							self.line_clears = 0
+							self.level += 1
+
 						are_rows_full = True
 
 				if are_rows_full:
+					self.calculate_score(len(full_rows))
+					print("Score:", self.score)
+					
 					util.post_custom_event(g_const.ROW_FULL_ID, full_rows)
 					self.collapse_row_sizes()
 
@@ -64,3 +75,13 @@ class GameState:
 			curr_y -= 1
 
 		self.row_sizes = temp
+
+	def calculate_score(self, num_rows):
+		if num_rows == 1:
+			self.score += 40 * (self.level + 1)
+		elif num_rows == 2:
+			self.score += 100 * (self.level + 1)
+		elif num_rows == 3:
+			self.score += 300 * (self.level + 1)
+		elif num_rows == 4:
+			self.score += 1200 * (self.level + 1)

@@ -44,10 +44,7 @@ def main():
 			# draw background and objects
 			arena.draw()
 			game_state.curr_shape.draw()
-
-			for row in terrain.game_map:
-				for square in row:
-					if square != None: square.draw()
+			terrain.draw()
 
 			# update display
 			pyg.display.update()

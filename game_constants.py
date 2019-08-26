@@ -10,7 +10,7 @@ square_size = 50
 UI_BOX_MARGIN = 10
 
 """ general game constants """
-fps = 120 # desired framerate
+fps = 60 # desired framerate
 frame_length = 1.0 / fps # in seconds
 
 arena_w_blocks, arena_h_blocks = 10, 20
@@ -37,6 +37,9 @@ s7_surf = pyg.image.load("s7.png").convert()
 
 dt_world_update = 500 # in ms
 dt_manip_update = 62 # in ms
+
+dt_world_update_lookup = \
+		[53, 49, 45, 41, 37, 33, 28, 22, 17, 11, 10, 9, 8, 7, 6, 6, 5, 5, 4, 4, 3] # in frames, assuming fps is 60
 
 """ shape constants """
 SHAPE_ORIENT_1 = 0
