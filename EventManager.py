@@ -9,6 +9,8 @@ class EventManager:
 		self.is_world_down = True # True if falling by gravity, False if falling due to player
 		self.is_strafe_rot = False # True if rotating/strafing, False otherwise
 
+		self.curr_world_ticks_index = 0
+
 		self.move_down_manip_clock = Clock()
 		self.strafe_rot_manip_clock = Clock()
 
@@ -82,6 +84,9 @@ class EventManager:
 				sys.exit()
 
 			if event.type == pyg.USEREVENT: # repost only custom events to event queue
+				if event.cus_event == g_const.LEVEL_UP_ID:
+					self.curr_world_ticks_index += 1
+
 				pyg.event.post(event)
 				continue
 
@@ -117,8 +122,9 @@ class EventManager:
 
 	def post_movement_event(self, current_manip):
 		if self.is_world_down:
-			if self.move_down_secs >= g_const.dt_world_update:
-				self.move_down_secs = 0 # reset ticks 
+			# if self.move_down_secs >= g_const.dt_world_update:
+			if self.move_down_secs >= 1000 * (g_const.dt_world_update_lookup[self.curr_world_ticks_index] / 60):
+				self.move_down_secs = 0 # reset ticks
 				util.post_custom_event(g_const.WORLD_UPDATE_ID)
 
 		else: # down manip

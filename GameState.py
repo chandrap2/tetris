@@ -51,9 +51,12 @@ class GameState:
 						full_rows.append(y)
 
 						self.line_clears += 1
-						if self.line_clears == 10: # leveling up
+						if self.line_clears == 5: # leveling up
 							self.line_clears = 0
 							self.level += 1
+							util.post_custom_event(g_const.LEVEL_UP_ID)
+
+							# print("\nLevel:", self.level)
 
 						are_rows_full = True
 

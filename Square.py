@@ -11,7 +11,7 @@ class Square():
 
 		self.is_full_row_indicator = is_full_row_indicator # used when a square is an indicator
 		if is_full_row_indicator:
-			self.x_block = 0 # ensuring indicator will is at te very left
+			self.x_block = 0 # ensuring indicator will is at the very left
 
 		self.update_pixel_pos()
 

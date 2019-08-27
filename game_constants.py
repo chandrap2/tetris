@@ -75,6 +75,8 @@ SQUARE_COOR_ID = pyg.USEREVENT + 7 # event to store square coords when it's corr
 
 ROW_FULL_ID = pyg.USEREVENT + 8 # event to store y coordinate of a full row
 
+LEVEL_UP_ID = pyg.USEREVENT + 9 # event to store y coordinate of a full row
+
 """ game states """
 PLAY_STATE = 0
 ROW_DEL_PHASE = 1
