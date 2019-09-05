@@ -15,6 +15,9 @@ class Shape1():
 		self.terrain = terrain
 
 		self.squares = [Square(), Square(1, 0), Square(1, 1), Square(2, 1)]
+		# for square in self.squares:
+		# 	square.move_up(1)
+
 		self.origin_block = self.squares[1] # second element is square of reference
 		self.set_init_origin_x(g_const.arena_w_blocks // 2)
 
@@ -120,4 +123,5 @@ class Shape1():
 
 	def draw(self):
 		for square in self.squares:
-			square.draw()
+			if square.y_block >= 0:
+				square.draw()

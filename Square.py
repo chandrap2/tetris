@@ -27,6 +27,10 @@ class Square():
 		self.x_block += abs(dx)
 		self.update_pixel_pos()
 
+	def move_up(self, dy):
+		self.y_block -= abs(dy)
+		self.update_pixel_pos()
+
 	def move_to_block(self, x, y):
 		self.x_block = x
 		self.y_block = y
@@ -47,6 +51,12 @@ class Square():
 		self.s_surface = pyg.transform.scale(s_surf, (g_const.square_size, g_const.square_size))
 		self.s_rect = self.s_surface.get_rect() # pos is (0, 0)
 		self.update_pixel_pos()
+
+	def is_contained(self):
+		if (self.x_block >= 0 and self.x_block < g_const.arena_w_blocks) and \
+		(self.y_block >= 0 and self.y_block < g_const.arena_h_blocks):
+			return True
+		return False
 
 	def draw(self):
 		g_const.screen.blit(self.s_surface, self.get_pixel_pos())
