@@ -12,16 +12,14 @@ class Shape6(Shape1):
 	Can't rotate
 	"""
 	def __init__(self, terrain):
-		Shape1.__init__(self, terrain)
-		for square in self.squares: square.set_surface(g_const.s6_surf)
+		self.terrain = None
+		self.squares = [(0, 0), (1, 0), (0, 1), (1, 1)]
+		self.origin_block = None # second element is square of reference
 
-		self.squares[0].move_to_block(0, 0)
-		self.squares[1].move_to_block(1, 0)
-		self.squares[2].move_to_block(0, 1)
-		self.squares[3].move_to_block(1, 1)
-		self.origin_block = self.squares[0] # only used for moving shape to center of screen
+		self.orient_state = g_const.SHAPE_ORIENT_1
+		self.has_hit_bottom = False
 
-		self.set_init_origin_x(g_const.arena_w_blocks // 2)
+		self.init_shape(terrain, g_const.s6_surf, 0)
 
 	def update(self, events):
 		if not self.has_hit_bottom:

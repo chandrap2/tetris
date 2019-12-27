@@ -11,18 +11,26 @@ class Shape1():
 	.23
 	"""
 	def __init__(self, terrain):
-		# self.screen = g_const.screen
-		self.terrain = terrain
-
-		self.squares = [Square(), Square(1, 0), Square(1, 1), Square(2, 1)]
-		# for square in self.squares:
-		# 	square.move_up(1)
-
-		self.origin_block = self.squares[1] # second element is square of reference
-		self.set_init_origin_x(g_const.arena_w_blocks // 2)
+		self.terrain = None
+		self.squares = [(0, 0), (1, 0), (1, 1), (2, 1)] # square positions
+		self.origin_block = None # second element is square of reference
 
 		self.orient_state = g_const.SHAPE_ORIENT_1
 		self.has_hit_bottom = False
+
+		self.init_shape(terrain, g_const.s1_surf, 1)
+
+	# initializes Square objects
+	def init_shape(self, terrain, surface, origin):
+		self.terrain = terrain
+
+		for i in range(4):
+			self.squares[i] = Square(self.squares[i])
+			self.squares[i].set_surface(surface)
+			self.squares[i].move_up(2)
+
+		self.origin_block = self.squares[origin] # second element is square of reference
+		self.set_init_origin_x(g_const.arena_w_blocks // 2)
 
 	## NOTE: update update() overwritten in Shape6 after any edits here
 	def update(self, events):

@@ -12,17 +12,14 @@ class Shape7(Shape1):
 	.3..
 	"""
 	def __init__(self, terrain):
-		Shape1.__init__(self, terrain)
-		for square in self.squares: square.set_surface(g_const.s7_surf)
+		self.terrain = None
+		self.squares = [(0, 0), (0, 1), (0, 2), (0, 3)]
+		self.origin_block = None # second element is square of reference
 
-		self.squares[0].move_to_block(0, 0)
-		self.squares[1].move_to_block(0, 1)
-		self.squares[2].move_to_block(0, 2)
-		self.squares[3].move_to_block(0, 3)
-		self.origin_block = self.squares[0] # only used for moving shape to center of screen
+		self.orient_state = g_const.SHAPE_ORIENT_1
+		self.has_hit_bottom = False
 
-		self.set_init_origin_x(g_const.arena_w_blocks // 2)
-
+		self.init_shape(terrain, g_const.s7_surf, 0)
 		self.ref_x_block, self.ref_y_block = self.origin_block.x_block - 1, 0 # origin is top left of 4x4 bounding rect
 
 	def rotate_clock(self):

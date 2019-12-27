@@ -25,7 +25,7 @@ class Terrain:
 		dummy_row = [None for x in range(g_const.arena_w_blocks)]
 		for row in rows_to_collapse:
 			self.game_map[row] = list(dummy_row)
-			self.game_map[row][0] = Square(0, row, is_full_row_indicator = True) # indicating a cleared row
+			self.game_map[row][0] = Square((0, row), is_full_row_indicator = True) # indicating a cleared row
 
 		temp = [list(dummy_row) for y in range(g_const.arena_h_blocks)] # new blank terrain map
 		real_i = temp_i = g_const.arena_h_blocks - 1 # indices for scanning for cleared rows/populating new map

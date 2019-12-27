@@ -39,6 +39,7 @@ class GameState:
 				# self.curr_shape = Shape1(self.terrain)	# for testing
 				self.curr_shape = self.next_shape
 				self.next_shape = util.gen_shape(self.terrain)
+
 				are_rows_full = False
 				full_rows = [] # list for storing row indices of full rows
 
