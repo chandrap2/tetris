@@ -5,6 +5,7 @@ from Square import Square
 from Terrain import Terrain
 
 class Shape1():
+	"""push test"""
 	"""
 	...
 	01.
@@ -27,7 +28,7 @@ class Shape1():
 		for i in range(4):
 			self.squares[i] = Square(self.squares[i])
 			self.squares[i].set_surface(surface)
-			self.squares[i].move_up(2)
+			# self.squares[i].move_up(2)
 
 		self.origin_block = self.squares[origin] # second element is square of reference
 		self.set_init_origin_x(g_const.arena_w_blocks // 2)
